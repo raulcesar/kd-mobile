@@ -1,0 +1,26 @@
+{
+  "name": "zhmobile",
+  "version": "0.0.0",
+  "main": "app.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "test": "karma start ./devtools/karma.conf.js",
+    "protractor": "protractor ./devtools/protractor-conf.js",
+    "start": "gulp --gulpfile ./devtools/gulpfile.js testcopy"
+  },
+  "devDependencies": {
+    "event-stream": "~3.2",
+    "gulp": "*",
+    "gulp-angular-templatecache": "^1.5.0",
+    "gulp-concat": "~2.4",
+    "gulp-connect": "~2.2",
+    "gulp-html-replace": "^1.4.4",
+    "gulp-replace": "^0.5.2",
+    "gulp-sass": "~1.3",
+    "karma": "~0.12",
+    "karma-chrome-launcher": "~0.1",
+    "karma-jasmine": "~0.2",
+    "protractor": "*",
+    "rimraf": "^2.2.8"
+  }
+}

@@ -1,0 +1,41 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-assertive">
+      <h1 class="title">Left</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item nav-clear menu-close ng-click="login()">
+          <i class="fa fa-cogs"></i>
+        </ion-item>
+
+        <ion-item nav-clear menu-close ng-click="login()">
+          <i class="fa fa-user"> - Login</i>
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="ionic.mtarefas">
+          <i class="fa fa-th-list"> - Minhas Tarefas</i>
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="ionic.pessoas">
+          <i class="fa fa-group"> - Pessoas</i>
+        </ion-item>
+
+        <ion-item nav-clear menu-close ui-sref="ionic.agenda">
+          <i class="fa fa-calendar"> - Agenda</i>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

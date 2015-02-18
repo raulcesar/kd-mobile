@@ -9,8 +9,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-     <preference name="fullscreen"                 value="true" />
     <preference name="BackupWebStorage" value="local"/>
-    
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
 
 </widget>

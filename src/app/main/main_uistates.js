@@ -2,110 +2,128 @@
  * Created by raul on 29/04/14.
  */
 'use strict';
-var mainStates = angular.module('zhm.main.states', [
-    'zhm.main.controllers',
-    'zhm.famous.controllers',
-    'zhm.foundation.controllers',
-    'zhm.ionic.controllers',
+var mainStates = angular.module('kdm.main.states', [
+    'kdm.main.controllers',
+    'kdm.famous.controllers',
+    'kdm.foundation.controllers',
+    'kdm.main.controllers',
     'ionic'
 ]);
 
-mainStates.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+mainStates.config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
 
-    // $urlRouterProvider.otherwise('/app/playlists');
-    $urlRouterProvider.otherwise('/ionic/mtarefas');
-
-
-
-    $stateProvider
-
-   
+        // $urlRouterProvider.otherwise('/app/playlists');
+        $urlRouterProvider.otherwise('/kdm/mtarefas');
 
 
-        .state('zhm', {
-        url: '/zhm',
-        templateUrl: 'main/state_main.html',
-        data: {
-            moduleName: 'Main'
-        },
-        controller: 'mainCtrl'
-    })
 
-    .state('famous', {
-        url: '/famous',
-        templateUrl: 'main/famous.html',
-        data: {
-            moduleName: 'Famous'
-        },
-        controller: 'famousCtrl'
-    })
+        $stateProvider
 
-    .state('foundation', {
-        url: '/foundation',
-        templateUrl: 'main/foundation.html',
-        data: {
-            moduleName: 'Foundation'
-        },
-        controller: 'foundationCtrl'
-    })
 
-    // .state('ionic', {
-    //     url: '/ionic',
-    //     abstract: true,
-    //     templateUrl: 'main/ionic.html',
-    //     controller: 'ionicCtrl'
-    // })
 
-    .state('ionic', {
 
-        url: '/ionic',
-        abstract: true,
-        templateUrl: 'main/ionicmenu.html',
-        controller: 'ionicCtrl'
+        .state('kdmpoctecs', {
+            url: '/kdmpoctecs',
+            templateUrl: 'main/state_main.html',
+            data: {
+                moduleName: 'Main'
+            },
+            controller: 'mainCtrl'
+        })
 
-    })
+        .state('famous', {
+            url: '/famous',
+            templateUrl: 'main/famous.html',
+            data: {
+                moduleName: 'Famous'
+            },
+            controller: 'famousCtrl'
+        })
 
-    .state('ionic.mtarefas', {
+        .state('foundation', {
+            url: '/foundation',
+            templateUrl: 'main/foundation.html',
+            data: {
+                moduleName: 'Foundation'
+            },
+            controller: 'foundationCtrl'
+        })
 
-        url: '/mtarefas',
-        views: {
-            'menuContent': {
-                templateUrl: 'main/ionicminhastarefas.html',
-                controller: 'ionicCtrl'
-            }
-        }
-    })
 
-    .state('ionic.pessoas', {
+        .state('kdm', {
 
-        url: '/pessoas',
-        views: {
-            'menuContent': {
-                templateUrl: 'main/ionicpessoas.html',
-                controller: 'ionicCtrl'
-            }
-        }
-    })
+            url: '/kdm',
+            abstract: true,
+            templateUrl: 'main/kdmmenu.html',
+            controller: 'kdmCtrl'
 
-    .state('ionic.agenda', {
-            url: '/agenda',
+        })
+
+        .state('kdm.config', {
+
+            url: '/config',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/ionicagenda.html',
-                    controller: 'ionicCtrl'
+                    templateUrl: 'main/kdmconfig.html',
+                    controller: 'kdmCtrl'
                 }
             }
         })
 
-    // .state('app.single', {
-    //     url: "/playlists/:playlistId",
-    //     views: {
-    //         'menuContent': {
-    //             templateUrl: "templates/playlist.html",
-    //             controller: 'PlaylistCtrl'
-    //         }
-    //     }
+        .state('kdm.mtarefas', {
+
+            url: '/mtarefas',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/kdmminhastarefas.html',
+                    controller: 'kdmCtrl'
+                }
+            }
+        })
+
+        .state('kdm.pessoas', {
+
+            url: '/pessoas',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/kdmpessoas.html',
+                    controller: 'PessoasCtrl'
+                }
+            }
+        })
 
 
-    ;
-}]);
+        .state('kdm.pessoadetail', {
+            url: '/pessoas/:pessoaid',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/pessoaDetail.html',
+                    controller: 'PessoaDetailCtrl'
+                }
+            }
+        })
+
+        .state('kdm.agenda', {
+            url: '/agenda',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/kdmagenda.html',
+                    controller: 'kdmCtrl'
+                }
+            }
+        })
+
+        // .state('app.single', {
+        //     url: "/playlists/:playlistId",
+        //     views: {
+        //         'menuContent': {
+        //             templateUrl: "templates/playlist.html",
+        //             controller: 'PlaylistCtrl'
+        //         }
+        //     }
+
+
+        ;
+    }
+]);

@@ -1,4 +1,4 @@
-var config = angular.module('zhm.config', []);
+var config = angular.module('kdm.config', []);
 
 config.constant('CONFIG', {
   BackendBaseUrl: 'http://localhost:3030/',

@@ -179,7 +179,7 @@ gulp.task('copy-index', function() {
 gulp.task('connect-dev', function() {
     connect.server({
         root: [__dirname, 'app', 'build'],
-        port: 9000,
+        port: 9090,
         livereload: true
     });
 });
@@ -210,5 +210,5 @@ gulp.task('copy-files-cordova', ['clean-cordova', 'clean', 'scripts-production',
 
 gulp.task('default', ['copy-files-cordova']);
 gulp.task('genNoServe', ['clean', 'scripts-production', 'templates', 'VendorCSS', 'AppCSS', 'copyImagesNoMin', 'CopiaWebFonts', 'copyMapFiles', 'copy-index', 'vendorJS']);
-gulp.task('desenv', ['copyImagesNoMin', 'CopiaWebFonts', 'CopiaIonicWebFonts', 'VendorCSS', 'AppCSS', 'watchSTYLE']);
+gulp.task('desenv', ['copyImagesNoMin', 'CopiaWebFonts', 'VendorCSS', 'AppCSS', 'watchSTYLE']);
 gulp.task('serve-desenv', ['desenv', 'connect-dev']);

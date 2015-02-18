@@ -3,42 +3,38 @@
 'use strict';
 var kdmCtrl = angular.module('kdm.main.controllers', [
     'kdm',
-    'kdm.config',
+    'kdm.common.services',
     'kd.pessoas.reposervices'
 ]);
 
-kdmCtrl.controller('kdmCtrl', ['$scope', '$ionicSideMenuDelegate',
-    function($scope, $ionicSideMenuDelegate) {
+kdmCtrl.controller('kdmCtrl', ['$scope','kdmConfigServices',
+    function($scope,kdmConfigServices) {
 
-        // $scope.toggleLeft = function() {
-        //  // alert('hello');
-        //     $kdmSideMenuDelegate.toggleLeft();
-        //   };
 
-        $scope.user = {
-            'name': 'raul',
-            'email': 'raul.teixeira@gmail.com'
+        $scope.config = {
+            urlServidor: kdmConfigServices.getBackendServerURL()
         };
-        console.log('Entered kdm Ctrl.');
+        $scope.aplicarConfig = function() {
+            kdmConfigServices.setBackendServerURL($scope.config.urlServidor);
+            console.log('a fazer');
+        };
+
+       
+       
     }
 ]);
 
 kdmCtrl.controller('PessoasCtrl', [
     '$scope',
-    'CONFIG',
+    'kdmConfigServices',
     'pessoaResourceService',
-    function($scope, CONFIG, pessoaResourceService) {
+    function($scope, kdmConfigServices, pessoaResourceService) {
         $scope.minhasTarefas = [];
-
         
 
         $scope.fotoUrl = function(idPessoa) {
-          return pessoaResourceService.getFotoUrl(CONFIG.BackendBaseUrl, idPessoa);
+          return pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), idPessoa);
         };
-
-        // var fotoUrlCru = CONFIG.BackendBaseUrl + 'pessoa/' + pessoaAtiva.id + '/foto/1';
-        // $scope.fotoUrl = fotoUrlCru + '?decache=' + Math.random();
-
 
         $scope.pesquisaPessoa = function() {
             console.log('teste');
@@ -88,9 +84,9 @@ kdmCtrl.controller('PessoaDetailCtrl', [
     '$scope',
     '$stateParams',
     '$ionicLoading', 
-    'CONFIG',
+    'kdmConfigServices',
     'pessoaResourceService',
-    function($scope, $stateParams, $ionicLoading, CONFIG, pessoaResourceService) {
+    function($scope, $stateParams, $ionicLoading, kdmConfigServices, pessoaResourceService) {
         $scope.hello = 'hello';
         console.log('entrei');
         $scope.pessoaid = $stateParams.pessoaid;
@@ -102,7 +98,7 @@ kdmCtrl.controller('PessoaDetailCtrl', [
         });
 
         //Seta URL da foto.
-        $scope.fotoUrl = pessoaResourceService.getFotoUrl(CONFIG.BackendBaseUrl, $stateParams.pessoaid);
+        $scope.fotoUrl = pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), $stateParams.pessoaid);
         
 
 

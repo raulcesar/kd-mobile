@@ -60,6 +60,17 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
 
         })
 
+        .state('kdm.config', {
+
+            url: '/config',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/kdmconfig.html',
+                    controller: 'kdmCtrl'
+                }
+            }
+        })
+
         .state('kdm.mtarefas', {
 
             url: '/mtarefas',

@@ -5,6 +5,7 @@ var dependencies = [
   'ui.router',
   'restangular',
   'kdm.config',
+  'kdm.common.services',
   'kdm.main.states', 
   
   
@@ -14,9 +15,9 @@ var kdm = angular.module('kdm', dependencies);
 
 
 //RESTANGULAR initialization.
-kdm.config(['RestangularProvider', 'CONFIG', function (RestangularProvider, CONFIG) {
-  RestangularProvider.setBaseUrl(CONFIG.BackendBaseUrl);
-}]);
+// kdm.config(['RestangularProvider', 'kdmConfigServices', function (RestangularProvider, kdmConfigServices) {
+//   RestangularProvider.setBaseUrl(kdmConfigServices.getBackendServerURL());
+// }]);
 
 //HTTP init
 kdm.config(['$httpProvider', function ($httpProvider) {
@@ -24,8 +25,8 @@ kdm.config(['$httpProvider', function ($httpProvider) {
   $httpProvider.defaults.useXDomain = true;
 }]);
 
-kdm.run(['Restangular', 'CONFIG', '$ionicPlatform', function(Restangular, CONFIG, $ionicPlatform) {
-  Restangular.setBaseUrl(CONFIG.BackendBaseUrl);
+kdm.run(['Restangular', 'kdmConfigServices', '$ionicPlatform', function(Restangular, kdmConfigServices, $ionicPlatform) {
+  Restangular.setBaseUrl(kdmConfigServices.getBackendServerURL());
 
 
   $ionicPlatform.ready(function() {

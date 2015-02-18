@@ -49,11 +49,6 @@ var paths = {
     './app/assets/fonts/**/*.*'
     ],
 
-    ionicWebFonts: [
-    './bower_components/ionic/fonts/*.*',
-    // './bower_components/font-awesome/fonts/*.*'
-
-    ],
 
     appcss: ['./app/assets/style/app/**/*.css'],
     appsass: ['./app/assets/style/app/**/*.scss'],
@@ -90,10 +85,10 @@ var paths = {
 
     build: './build',
     cordovadeploy: '../www',
-    images: ['./app/**/*.ico', './app/**/*.jpg', './app/**/*.png', './app/**/*.jpeg'],
+    imageSrc: ['./app/assets/images/*.*'],
     mockFiles: ['./app/mockdata/**/*.json']
 };
-
+paths.imageDestinationDir = paths.build + '/assets/images';
 paths.buildfonts = paths.build + '/assets/fonts';
 paths.ionicbuildfonts = paths.build + '/fonts';
 

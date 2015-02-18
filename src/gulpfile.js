@@ -32,10 +32,8 @@ function buildVersionString() {
 
 
 gulp.task('copyImagesNoMin', function() {
-    var imageDestinationDir = paths.build + '/assets/images';
-
-    gulp.src('./app/assets/images/*.*')
-        .pipe(gulp.dest(imageDestinationDir));
+    gulp.src(paths.imageSrc)
+        .pipe(gulp.dest(paths.imageDestinationDir));
 });
 
 gulp.task('watchSTYLE', function() {

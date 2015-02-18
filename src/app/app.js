@@ -4,27 +4,30 @@ var dependencies = [
   'ionic',
   'ui.router',
   'restangular',
-  'zhm.config',
-  'zhm.main.states', 
+  'kdm.config',
+  'kdm.main.states', 
   
   
 ];
 
-var zhm = angular.module('zhm', dependencies);
+var kdm = angular.module('kdm', dependencies);
 
 
 //RESTANGULAR initialization.
-zhm.config(['RestangularProvider', 'CONFIG', function (RestangularProvider, CONFIG) {
+kdm.config(['RestangularProvider', 'CONFIG', function (RestangularProvider, CONFIG) {
   RestangularProvider.setBaseUrl(CONFIG.BackendBaseUrl);
 }]);
 
 //HTTP init
-zhm.config(['$httpProvider', function ($httpProvider) {
+kdm.config(['$httpProvider', function ($httpProvider) {
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.defaults.useXDomain = true;
 }]);
 
-zhm.run(function($ionicPlatform) {
+kdm.run(['Restangular', 'CONFIG', '$ionicPlatform', function(Restangular, CONFIG, $ionicPlatform) {
+  Restangular.setBaseUrl(CONFIG.BackendBaseUrl);
+
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -36,4 +39,4 @@ zhm.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
   });
-})
+}]);

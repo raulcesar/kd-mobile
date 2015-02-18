@@ -1,5 +1,6 @@
 {
-  "predef": ["angular"],
+"predef": ["angular", "_"],
+  
   "node": true,
   "esnext": true,
   "bitwise": true,

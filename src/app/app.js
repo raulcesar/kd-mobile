@@ -4,7 +4,7 @@ var dependencies = [
   'ionic',
   'ui.router',
   'restangular',
-  'kdm.config',
+  // 'kdm.config',
   'kdm.common.services',
   'kdm.main.states', 
   

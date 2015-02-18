@@ -3,8 +3,8 @@
  */
 'use strict';
 
-var kdPessoasRepoServices = angular.module('kd.pessoas.reposervices', ['restangular'])
-    .constant('version', '0.0.1');
+var kdPessoasRepoServices = angular.module('kd.pessoas.reposervices', ['restangular']);
+    
 
 var resourceResumoPessoas = 'resumopessoas';
 var resourcePessoaCompleta = 'pessoa';
@@ -20,6 +20,8 @@ var resourceInstituicaoEnsino = 'instituicaoensino';
 var resourceCursoFormacao = 'cursoformacao';
 
 var resourcePessoaEndereco = 'endereco';
+
+kdPessoasRepoServices.constant('version', '0.0.1');
 
 kdPessoasRepoServices.config(['RestangularProvider',
     function(RestangularProvider) {

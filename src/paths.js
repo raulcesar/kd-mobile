@@ -26,7 +26,7 @@ var paths = {
 
     envConfigFiles: {
         production: ['./app/env/*production.js'],
-        development: ['./app/env/*desenv.js']
+        development: ['./app/env/*dev.js']
     },
 
     templates: ['!./app/index.html', './app/**/*.html'],

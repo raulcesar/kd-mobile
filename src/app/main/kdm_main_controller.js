@@ -1,13 +1,19 @@
 //This is the controller for the "main module" of the appliation.
 //In a complex application, each module gets its own folder.
 'use strict';
-var kdmCtrl = angular.module('kdm.main.controllers', [
+var kdmmainCtrl = angular.module('kdm.main.controllers', [
     'kdm',
     'kdm.common.services',
     'kd.pessoas.reposervices'
 ]);
 
-kdmCtrl.controller('kdmCtrl', ['$scope','kdmConfigServices',
+kdmmainCtrl.controller('mainCtrl', ['$scope',
+    function($scope) {
+        $scope.name = 'whatever';
+    }]);
+
+
+kdmmainCtrl.controller('kdmCtrl', ['$scope','kdmConfigServices',
     function($scope,kdmConfigServices) {
 
 
@@ -24,7 +30,7 @@ kdmCtrl.controller('kdmCtrl', ['$scope','kdmConfigServices',
     }
 ]);
 
-kdmCtrl.controller('PessoasCtrl', [
+kdmmainCtrl.controller('PessoasCtrl', [
     '$scope',
     'kdmConfigServices',
     'pessoaResourceService',
@@ -80,7 +86,7 @@ kdmCtrl.controller('PessoasCtrl', [
     }
 ]);
 
-kdmCtrl.controller('PessoaDetailCtrl', [
+kdmmainCtrl.controller('PessoaDetailCtrl', [
     '$scope',
     '$stateParams',
     '$ionicLoading', 
@@ -114,14 +120,10 @@ kdmCtrl.controller('PessoaDetailCtrl', [
                 throw new Error(msg);
             });
             return promise;
-        };
+        }
 
         buscaPessoa($stateParams.pessoaid);
 
 
     }
 ]);
-
-
-
-// .controller('PlaylistCtrl', function($scope, $stateParams) {});

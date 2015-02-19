@@ -12,7 +12,9 @@ kdmServices.factory('kdmConfigServices', [
     function(Restangular) {
     	
     	var backEndServerURL = 'http://localhost:3030/';
-        backEndServerURL = 'http://192.168.1.246:3030/';
+        // backEndServerURL = 'http://192.168.1.246:3030/';
+        // backEndServerURL = 'http://infocedi.camara.leg.br/kdapi/';
+
     	
     	var setBackendServerURL = function(url) {
     		backEndServerURL = url;

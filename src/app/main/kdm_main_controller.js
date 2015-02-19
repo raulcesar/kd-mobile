@@ -8,9 +8,11 @@ var kdmmainCtrl = angular.module('kdm.main.controllers', [
     'kd.pessoas.reposervices'
 ]);
 
-kdmmainCtrl.controller('mainCtrl', ['$scope',
-    function($scope) {
-        $scope.name = 'whatever';
+kdmmainCtrl.controller('mainCtrl', ['$scope', '$ionicLoading',
+    function($scope, $ionicLoading) {
+         $scope.cancel = function() {
+            $ionicLoading.hide();
+        };
     }]);
 
 

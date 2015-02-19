@@ -1,5 +1,7 @@
 <ion-view view-title="Minhas Tarefas">
     <ion-content>
+
+        <h1 ng-if="error">{{error}}</h1>
         <ul class="list">
             <li class="item" ng-repeat="tarefa in tarefas">
                 <h2>{{tarefa.Titulo}}</h2>

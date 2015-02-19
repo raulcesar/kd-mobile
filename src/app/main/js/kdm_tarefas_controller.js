@@ -11,8 +11,8 @@ kdTarefasCtrl.controller('tarefasCtrl', ['$scope', 'pessoaResourceService', '$io
 
         //Mostra "spinnier"
         $ionicLoading.show({
-            // template: 'Aguarde...'
-            templateUrl: 'main/loading.html'
+            template: 'Aguarde...'
+            // templateUrl: 'main/views/loading.html'
         });
 
         $scope.buscaTarefas = function() {
@@ -24,7 +24,7 @@ kdTarefasCtrl.controller('tarefasCtrl', ['$scope', 'pessoaResourceService', '$io
             //     return;
             // }
 
-
+            
 
             // A funcao getPessoas do servico retorna uma 'promessa'.
             // Eu então chamo o 'then' que vincula as funcoes de sucesso e erro à finalizacao desta 'promessa'.

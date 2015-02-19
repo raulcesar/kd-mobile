@@ -3,11 +3,18 @@
  */
 'use strict';
 var mainStates = angular.module('kdm.main.states', [
-    'kdm.main.controllers',
+    'ui.router',
+    'kdm.poctec.controllers',
     'kdm.famous.controllers',
     'kdm.foundation.controllers',
+    
+
+    'kdm.config.controllers',
+    'kdm.pessoa.controllers',
     'kdm.tarefas.controllers',
-    'ionic'
+    'kdm.agenda.controllers'
+    // 'kdm.common.services',
+    // 'ionic'
 ]);
 
 mainStates.config(['$stateProvider', '$urlRouterProvider',
@@ -25,16 +32,16 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
 
         .state('kdmpoctecs', {
             url: '/kdmpoctecs',
-            templateUrl: 'main/state_main.html',
+            templateUrl: 'main/views/state_main.html',
             data: {
                 moduleName: 'Main'
             },
-            controller: 'mainCtrl'
+            controller: 'poctecCtrl'
         })
 
         .state('famous', {
             url: '/famous',
-            templateUrl: 'main/famous.html',
+            templateUrl: 'main/views/famous.html',
             data: {
                 moduleName: 'Famous'
             },
@@ -43,7 +50,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
 
         .state('foundation', {
             url: '/foundation',
-            templateUrl: 'main/foundation.html',
+            templateUrl: 'main/views/foundation.html',
             data: {
                 moduleName: 'Foundation'
             },
@@ -55,8 +62,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
 
             url: '/kdm',
             abstract: true,
-            templateUrl: 'main/kdmmenu.html'
-            // controller: 'kdmCtrl'
+            templateUrl: 'main/views/kdmmenu.html'
 
         })
 
@@ -65,8 +71,8 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             url: '/config',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/kdmconfig.html',
-                    controller: 'kdmCtrl'
+                    templateUrl: 'main/views/kdmconfig.html',
+                    controller: 'kdmConfigCtrl'
                 }
             }
         })
@@ -76,7 +82,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             url: '/mtarefas',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/kdmminhastarefas.html',
+                    templateUrl: 'main/views/kdmminhastarefas.html',
                     controller: 'tarefasCtrl'
                 }
             }
@@ -87,7 +93,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             url: '/pessoas',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/kdmpessoas.html',
+                    templateUrl: 'main/views/kdmpessoas.html',
                     controller: 'PessoasCtrl'
                 }
             }
@@ -98,7 +104,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             url: '/pessoas/:pessoaid',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/pessoaDetail.html',
+                    templateUrl: 'main/views/pessoaDetail.html',
                     controller: 'PessoaDetailCtrl'
                 }
             }
@@ -108,8 +114,8 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             url: '/agenda',
             views: {
                 'menuContent': {
-                    templateUrl: 'main/kdmagenda.html',
-                    controller: 'kdmCtrl'
+                    templateUrl: 'main/views/kdmagenda.html',
+                    controller: 'kdmAgendaCtrl'
                 }
             }
         })

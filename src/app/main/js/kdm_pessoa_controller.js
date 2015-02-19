@@ -1,48 +1,24 @@
-//This is the controller for the "main module" of the appliation.
-//In a complex application, each module gets its own folder.
 'use strict';
-var kdmmainCtrl = angular.module('kdm.main.controllers', [
+
+angular.module('kdm.pessoa.controllers', [
     'ionic',
+    'ui.router',
     'kdm',
     'kdm.common.services',
     'kd.pessoas.reposervices'
-]);
-
-kdmmainCtrl.controller('mainCtrl', ['$scope', '$ionicLoading',
-    function($scope, $ionicLoading) {
-         $scope.cancel = function() {
-            $ionicLoading.hide();
-        };
-    }]);
+])
 
 
-kdmmainCtrl.controller('kdmCtrl', ['$scope','kdmConfigServices',
-    function($scope,kdmConfigServices) {
-
-
-        $scope.config = {
-            urlServidor: kdmConfigServices.getBackendServerURL()
-        };
-        $scope.aplicarConfig = function() {
-            kdmConfigServices.setBackendServerURL($scope.config.urlServidor);
-            console.log('a fazer');
-        };
-
-       
-       
-    }
-]);
-
-kdmmainCtrl.controller('PessoasCtrl', [
+.controller('PessoasCtrl', [
     '$scope',
     'kdmConfigServices',
     'pessoaResourceService',
     function($scope, kdmConfigServices, pessoaResourceService) {
         $scope.minhasTarefas = [];
-        
+
 
         $scope.fotoUrl = function(idPessoa) {
-          return pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), idPessoa);
+            return pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), idPessoa);
         };
 
         $scope.pesquisaPessoa = function() {
@@ -87,12 +63,12 @@ kdmmainCtrl.controller('PessoasCtrl', [
 
 
     }
-]);
+])
 
-kdmmainCtrl.controller('PessoaDetailCtrl', [
+.controller('PessoaDetailCtrl', [
     '$scope',
     '$stateParams',
-    '$ionicLoading', 
+    '$ionicLoading',
     'kdmConfigServices',
     'pessoaResourceService',
     function($scope, $stateParams, $ionicLoading, kdmConfigServices, pessoaResourceService) {
@@ -100,7 +76,7 @@ kdmmainCtrl.controller('PessoaDetailCtrl', [
         console.log('entrei');
         $scope.pessoaid = $stateParams.pessoaid;
         $scope.pessoaCompleta = {};
-        
+
         //Mostra "spinnier"
         $ionicLoading.show({
             template: 'Aguarde...'
@@ -108,7 +84,7 @@ kdmmainCtrl.controller('PessoaDetailCtrl', [
 
         //Seta URL da foto.
         $scope.fotoUrl = pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), $stateParams.pessoaid);
-        
+
 
 
         //TODO: Avaliar o que é melhor... buscar aqui dentro ou carregar na lista e so passar o estado quando trouxer a pessoa.

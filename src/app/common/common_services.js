@@ -5,11 +5,15 @@ kdmServices.constant('version', '0.0.1');
 
 
 kdmServices.factory('kdmConfigServices', [
-    // '$rootScope',
+    '$rootScope',
     'Restangular',
     // '$q',
 
-    function(Restangular) {
+    function($rootScope, Restangular) {
+        var eventos = {
+            backendServerURLAtualizado: 'evtkdmBackendServerURLAtualizado'
+        };
+
     	
     	var backEndServerURL = 'http://localhost:3030/';
         // backEndServerURL = 'http://192.168.1.246:3030/';
@@ -18,6 +22,7 @@ kdmServices.factory('kdmConfigServices', [
     	
     	var setBackendServerURL = function(url) {
     		backEndServerURL = url;
+            $rootScope.$broadcast(eventos.backendServerURLAtualizado, backEndServerURL);
     		Restangular.setBaseUrl(backEndServerURL);
     	};
 
@@ -33,7 +38,8 @@ kdmServices.factory('kdmConfigServices', [
 
         return {
             setBackendServerURL: setBackendServerURL,
-            getBackendServerURL: getBackendServerURL
+            getBackendServerURL: getBackendServerURL,
+            eventos: eventos
         };
 
     }

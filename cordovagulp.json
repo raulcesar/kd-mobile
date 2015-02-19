@@ -1,0 +1,16 @@
+{
+    "cordova": [
+        [
+            "platform",
+            "add",
+            "ios",
+            "android"
+        ],
+        [
+            "plugin",
+            "add",
+            "org.apache.cordova.statusbar"
+        ]
+
+    ]
+}

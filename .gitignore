@@ -1,7 +1,7 @@
 # Created by http://www.gitignore.io
 ### CORDOVA BUILD ###
-platforms/ios/kd-mobile/Resources
-platforms/ios/kd-mobile/config.xml
+platforms
+plugins
 
 
 ### OSX ###

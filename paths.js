@@ -3,55 +3,55 @@
  */
 
 var paths = {
-    index: ['./app/index.html', './app/test.html'],
+    index: ['./src/app/index.html', './src/app/test.html'],
 
     scripts: [
-        '!./app/**/*_test.js',
-        '!./app/**/*_spec.js',
-        '!./app/**/*Spec.js',
-        '!./app/templates-dummy.js',
-        '!./app/env/**/*',
-        '!./app/pocs/**/*',
-        '!./app/**/e2e/**/*',
-        '!./app/**/*_mock*.js',
+        '!./src/app/**/*_test.js',
+        '!./src/app/**/*_spec.js',
+        '!./src/app/**/*Spec.js',
+        '!./src/app/templates-dummy.js',
+        '!./src/app/env/**/*',
+        '!./src/app/pocs/**/*',
+        '!./src/app/**/e2e/**/*',
+        '!./src/app/**/*_mock*.js',
 
 
-        './app/**/*.js'
+        './src/app/**/*.js'
     ],
 
     testes: {
-        e2e: './app/**/e2e/**/*.js',
-        reports: './testReports'
+        e2e: './src/app/**/e2e/**/*.js',
+        reports: './src/testReports'
     },
 
     envConfigFiles: {
-        production: ['./app/env/*production.js'],
-        development: ['./app/env/*dev.js']
+        production: ['./src/app/env/*production.js'],
+        development: ['./src/app/env/*dev.js']
     },
 
-    templates: ['!./app/index.html', './app/**/*.html'],
+    templates: ['!./src/app/index.html', './src/app/**/*.html'],
 
 
     vendorcss: [
-        './app/assets/style/external/**/*.css',
+        './src/app/assets/style/external/**/*.css',
         './bower_components/famous-angular/dist/famous-angular.css',
         './bower_components/ionic/css/ionic.min.css'
 
 
     ],
     vendorsass: [
-        './app/assets/style/external/**/*.scss'
+        './src/app/assets/style/external/**/*.scss'
         // './bower_components/font-awesome/scss/*.scss'
         // ,
         // './bower_components/foundation/scss/*.scss'
     ],
     webFonts: [
-    './app/assets/fonts/**/*.*'
+    './src/app/assets/fonts/**/*.*'
     ],
 
 
-    appcss: ['./app/assets/style/app/**/*.css'],
-    appsass: ['./app/assets/style/app/**/*.scss'],
+    appcss: ['./src/app/assets/style/app/**/*.css'],
+    appsass: ['./src/app/assets/style/app/**/*.scss'],
 
 
 
@@ -84,29 +84,13 @@ var paths = {
     ],
 
     build: './build',
-    cordovadeploy: '../www',
-    imageSrc: ['./app/assets/images/*.*'],
-    mockFiles: ['./app/mockdata/**/*.json']
+    cordovadeploy: './www',
+    imageSrc: ['./src/app/assets/images/*.*'],
+    mockFiles: ['./src/app/mockdata/**/*.json']
 };
 paths.imageDestinationDir = paths.build + '/assets/images';
 paths.buildfonts = paths.build + '/assets/fonts';
 paths.ionicbuildfonts = paths.build + '/fonts';
 
-//The uigrid needs special consideration.
-//paths.uigridfonts = [
-//  './app/assets/style/external/ui-grid/*.eot',
-//    './app/assets/style/external/ui-grid/*.svg',
-//    './app/assets/style/external/ui-grid/*.ttf',
-//    './app/assets/style/external/ui-grid/*.woff'
-//];
-
-//TODO: quando o UI-GRID vier do bower, temos que colocar abaixo. e comentar acima.
-paths.uigridfonts = [
-    './bower_components/angular-ui-grid/*.eot',
-    './bower_components/angular-ui-grid/*.svg',
-    './bower_components/angular-ui-grid/*.ttf',
-    './bower_components/angular-ui-grid/*.woff'
-];
-paths.uigridbuildfonts = paths.build;
 
 module.exports = paths;

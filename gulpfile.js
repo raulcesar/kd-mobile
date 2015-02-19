@@ -11,7 +11,7 @@ var os = require('os');
 var replace = require('gulp-replace');
 var angularTemplatecache = require('gulp-angular-templatecache');
 var htmlreplace = require('gulp-html-replace');
-
+var cordova = require('gulp-cordovacli');
 
 function buildVersionString() {
         var jenkinsTag = process.env.BUILD_TAG;
@@ -176,11 +176,18 @@ gulp.task('copy-index', function() {
 
 gulp.task('connect-dev', function() {
     connect.server({
-        root: [__dirname, 'app', 'build'],
+        root: ['.', 'src/app', 'src/build'],
         port: 9090,
         livereload: true
     });
 });
+// gulp.task('connect-dev', function() {
+//     connect.server({
+//         root: [__dirname, 'app', 'build'],
+//         port: 9090,
+//         livereload: true
+//     });
+// });
 
 gulp.task('connect-prod', function() {
     connect.server({
@@ -204,6 +211,11 @@ gulp.task('clean-cordova', function(cb) {
 gulp.task('copy-files-cordova', ['clean-cordova', 'clean', 'scripts-production', 'templates', 'VendorCSS', 'AppCSS', 'copyImagesNoMin', 'CopiaWebFonts', 'copyMapFiles', 'copy-index', 'vendorJS'], function() {
     gulp.src(paths.build + '/**/*')
         .pipe(gulp.dest(paths.cordovadeploy));
+});
+
+gulp.task('cordova-init', function() {
+    gulp.src('./cordovagulp.json')
+    .pipe(cordova());
 });
 
 gulp.task('default', ['copy-files-cordova']);

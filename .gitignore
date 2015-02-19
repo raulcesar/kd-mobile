@@ -2,6 +2,7 @@
 ### CORDOVA BUILD ###
 platforms
 plugins
+build
 
 
 ### OSX ###

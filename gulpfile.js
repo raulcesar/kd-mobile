@@ -209,11 +209,12 @@ gulp.task('clean-cordova', function(cb) {
     rimraf(paths.cordovadeploy, cb);
 });
 gulp.task('copy-files-cordova', ['clean-cordova', 'clean', 'scripts-production', 'templates', 'VendorCSS', 'AppCSS', 'copyImagesNoMin', 'CopiaWebFonts', 'copyMapFiles', 'copy-index', 'vendorJS'], function() {
-    gulp.src(paths.build + '/**/*')
+   return gulp.src(paths.build + '/**/*')
         .pipe(gulp.dest(paths.cordovadeploy));
+
 });
 
-gulp.task('cordova-init', function() {
+gulp.task('cordova-init', ['copy-files-cordova'], function() {
     gulp.src('./cordovagulp.json')
     .pipe(cordova());
 });

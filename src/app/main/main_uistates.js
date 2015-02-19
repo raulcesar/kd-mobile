@@ -6,6 +6,7 @@ var mainStates = angular.module('kdm.main.states', [
     'kdm.main.controllers',
     'kdm.famous.controllers',
     'kdm.foundation.controllers',
+    'kdm.tarefas.controllers',
     'ionic'
 ]);
 
@@ -76,7 +77,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             views: {
                 'menuContent': {
                     templateUrl: 'main/kdmminhastarefas.html',
-                    controller: 'kdmCtrl'
+                    controller: 'tarefasCtrl'
                 }
             }
         })

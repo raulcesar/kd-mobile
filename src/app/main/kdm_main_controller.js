@@ -2,6 +2,7 @@
 //In a complex application, each module gets its own folder.
 'use strict';
 var kdmmainCtrl = angular.module('kdm.main.controllers', [
+    'ionic',
     'kdm',
     'kdm.common.services',
     'kd.pessoas.reposervices'

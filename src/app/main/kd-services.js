@@ -20,6 +20,7 @@ var resourceInstituicaoEnsino = 'instituicaoensino';
 var resourceCursoFormacao = 'cursoformacao';
 
 var resourcePessoaEndereco = 'endereco';
+var resourceTarefas = 'tarefas';
 
 kdPessoasRepoServices.constant('version', '0.0.1');
 
@@ -288,7 +289,9 @@ kdPessoasRepoServices.factory('pessoaResourceService', [
             }
         };
 
-
+        var getTarefasPessoa = function(idPessoa) {
+            return Restangular.all(resourceTarefas).getList({Responsavel: idPessoa});
+        };
 
         var getHistoricoFormacaoPessoa = function(idPessoa) {
             return Restangular.one(resourcePessoaCompleta, idPessoa).all(resourcePessoaHistoricoFormacao).getList();
@@ -363,7 +366,9 @@ kdPessoasRepoServices.factory('pessoaResourceService', [
             salvarHistoricoFormacaoPessoa: salvarHistoricoFormacaoPessoa,
             getEnderecosPessoa: getEnderecosPessoa,
             salvarEnderecoPessoa: salvarEnderecoPessoa,
-            getFotoUrl: getFotoUrl
+            getFotoUrl: getFotoUrl,
+
+            getTarefasPessoa:getTarefasPessoa
 
         };
     }

@@ -12,7 +12,9 @@ platforms/ios/kd-mobile/config.xml
 # Icon must end with two \r
 Icon
 
-www
+/www/
+/platforms/ios/www/
+
 platforms/ios/kd-mobile.xcodeproj/project.xcworkspace/xcuserdata/
 
 # Thumbnails

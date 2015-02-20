@@ -13,11 +13,13 @@ var dependencies = [
 
 var kdm = angular.module('kdm', dependencies);
 
-
-//RESTANGULAR initialization.
-// kdm.config(['RestangularProvider', 'kdmConfigServices', function (RestangularProvider, kdmConfigServices) {
-//   RestangularProvider.setBaseUrl(kdmConfigServices.getBackendServerURL());
-// }]);
+kdm.config(function($compileProvider) {
+        $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+    })
+    //RESTANGULAR initialization.
+    // kdm.config(['RestangularProvider', 'kdmConfigServices', function (RestangularProvider, kdmConfigServices) {
+    //   RestangularProvider.setBaseUrl(kdmConfigServices.getBackendServerURL());
+    // }]);
 
 //HTTP init
 kdm.config(['$httpProvider', function($httpProvider) {
@@ -29,20 +31,11 @@ kdm.run(['Restangular', 'kdmConfigServices', '$ionicPlatform', function(Restangu
     Restangular.setBaseUrl(kdmConfigServices.getBackendServerURL());
 
     $ionicPlatform.ready(function() {
-        function onSuccess(imageData) {
-
-            alert('data:image/jpeg;base64,' + imageData);
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
 
-        function onFail(message) {
-            alert('Failed because: ' + message);
-        }
 
-        navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
-        });
-        
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {

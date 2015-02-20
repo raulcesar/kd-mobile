@@ -9,6 +9,7 @@
         [
             "plugin",
             "add",
+            "com.ionic.keyboard",
             "org.apache.cordova.statusbar",
             "org.apache.cordova.camera",
             "org.apache.cordova.device",

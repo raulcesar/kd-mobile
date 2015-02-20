@@ -10,6 +10,7 @@ var paths = {
         '!./src/app/**/*_spec.js',
         '!./src/app/**/*Spec.js',
         '!./src/app/templates-dummy.js',
+        '!./src/app/cordova.js',
         '!./src/app/env/**/*',
         '!./src/app/pocs/**/*',
         '!./src/app/**/e2e/**/*',

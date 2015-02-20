@@ -25,10 +25,13 @@ kdm.config(function($compileProvider) {
 kdm.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.timeout = 100;
+
 }]);
 
 kdm.run(['Restangular', 'kdmConfigServices', '$ionicPlatform', function(Restangular, kdmConfigServices, $ionicPlatform) {
     Restangular.setBaseUrl(kdmConfigServices.getBackendServerURL());
+    Restangular.setDefaultHttpFields({timeout: 1000});
 
     $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {

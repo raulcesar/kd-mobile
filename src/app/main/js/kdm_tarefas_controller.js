@@ -6,8 +6,13 @@ var kdTarefasCtrl = angular.module('kdm.tarefas.controllers', [
     'kd.pessoas.reposervices'
 ]);
 
-kdTarefasCtrl.controller('tarefasCtrl', ['$scope', 'pessoaResourceService', '$ionicLoading', 'kdmConfigServices', 
-    function($scope, pessoaResourceService, $ionicLoading, kdmConfigServices) {
+kdTarefasCtrl.controller('tarefasCtrl', ['$rootScope', '$scope', '$timeout', 'pessoaResourceService', '$ionicLoading', 'kdmConfigServices', 
+    function($rootScope, $scope, $timeout, pessoaResourceService, $ionicLoading, kdmConfigServices) {
+        $rootScope.$on(kdmConfigServices.eventos.backendServerURLAtualizado, function(event, toState) {
+            $timeout(function() {
+                $scope.buscaTarefas();
+            });
+        });
 
         //Mostra "spinnier"
         $ionicLoading.show({
@@ -39,7 +44,6 @@ kdTarefasCtrl.controller('tarefasCtrl', ['$scope', 'pessoaResourceService', '$io
                 $ionicLoading.hide();
             }, function(error) {
                 console.error(error);
-                console.error(error.headers());
                 $ionicLoading.hide();
                 $scope.error = 'Erro ao buscar tarefas. Servidor: ' + kdmConfigServices.getBackendServerURL();
             });

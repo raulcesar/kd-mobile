@@ -13,6 +13,7 @@ angular.module('kdm.pessoa.controllers', [
     '$scope',
     'kdmConfigServices',
     'pessoaResourceService',
+
     function($scope, kdmConfigServices, pessoaResourceService) {
         $scope.minhasTarefas = [];
 
@@ -62,16 +63,19 @@ angular.module('kdm.pessoa.controllers', [
 
 
 
+
     }
 ])
 
 .controller('PessoaDetailCtrl', [
     '$scope',
+    '$timeout',
     '$stateParams',
     '$ionicLoading',
     'kdmConfigServices',
     'pessoaResourceService',
-    function($scope, $stateParams, $ionicLoading, kdmConfigServices, pessoaResourceService) {
+    'Camera',
+    function($scope, $timeout, $stateParams, $ionicLoading, kdmConfigServices, pessoaResourceService, Camera) {
         $scope.hello = 'hello';
         console.log('entrei');
         $scope.pessoaid = $stateParams.pessoaid;
@@ -86,6 +90,35 @@ angular.module('kdm.pessoa.controllers', [
         $scope.fotoUrl = pessoaResourceService.getFotoUrl(kdmConfigServices.getBackendServerURL(), $stateParams.pessoaid);
 
 
+        $scope.atualizaFoto = function() {
+            console.log('Getting camera');
+            $ionicLoading.show({
+                template: 'getting camera'
+            });
+            $timeout(function() {
+                $ionicLoading.hide();
+            }, 3000);
+            Camera.getPicture().then(function(imageURI) {
+                console.log('dentro do then do getPicture');
+                $ionicLoading.show({
+                    template: 'dentro do then do getPicture: ' + imageURI
+                });
+                $timeout(function() {
+                    $ionicLoading.hide();
+                }, 3000);
+                console.log(imageURI);
+            }, function(err) {
+                $ionicLoading.show({
+                    template: 'dentro do error do getPicture'
+                });
+                $timeout(function() {
+                    $ionicLoading.hide();
+                }, 3000);
+
+                console.log('dentro do error do getPicture');
+                console.err(err);
+            });
+        };
 
         //TODO: Avaliar o que é melhor... buscar aqui dentro ou carregar na lista e so passar o estado quando trouxer a pessoa.
         function buscaPessoa(idPessoa) {
@@ -96,7 +129,9 @@ angular.module('kdm.pessoa.controllers', [
             }, function(error) {
                 var msg = 'ocorreu erro ao tentar buscar detalhes de pessoa: ' + error;
                 console.log(msg);
-                throw new Error(msg);
+                $ionicLoading.hide();
+
+
             });
             return promise;
         }

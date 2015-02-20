@@ -16,8 +16,8 @@ kdmServices.factory('kdmConfigServices', [
 
     	
     	var backEndServerURL = 'http://localhost:3030/';
-        // backEndServerURL = 'http://192.168.1.246:3030/';
-        backEndServerURL = 'http://infocedi.camara.leg.br/kdapi/';
+        backEndServerURL = 'http://192.168.1.246:3030/';
+        // backEndServerURL = 'http://infocedi.camara.leg.br/kdapi/';
 
     	
     	var setBackendServerURL = function(url) {
@@ -44,3 +44,28 @@ kdmServices.factory('kdmConfigServices', [
 
     }
 ]);
+
+kdmServices.factory('Camera', ['$q', function($q) {
+
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+      // if (!navigator || !navigator.camera) {
+      //   q.resolve('Nao temos camera');
+      //   return q.promise;
+      // }
+      console.log('chamei o servico camera getPicture');
+      console.log('Objeto navigator: ' + navigator);
+      navigator.camera.getPicture(function(result) {
+        // Do any magic you need
+        console.log('Vou resolver a promessa');
+        q.resolve(result);
+      }, function(err) {
+        console.log('Vou rejeitar a promessa');
+        q.reject(err);
+      }, options);
+
+      return q.promise;
+    }
+  }
+}]);

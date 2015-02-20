@@ -9,8 +9,10 @@
         [
             "plugin",
             "add",
-            "org.apache.cordova.statusbar"
+            "org.apache.cordova.statusbar",
+            "org.apache.cordova.camera",
+            "org.apache.cordova.device",
+            "org.apache.cordova.console"
         ]
-
     ]
 }

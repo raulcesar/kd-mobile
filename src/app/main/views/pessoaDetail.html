@@ -44,18 +44,17 @@
             <h1 class="title">Selecionar foto de: </h1>
         </ion-header-bar>
         <ion-content>
-            <ion-list>
-                <ion-item nav-clear ng-click="atualizaFoto(1)">
+            <div class="list list-inset" >
+                <div class="item" ng-click="atualizaFoto(1)">
                     <i class="ion ion-android-camera"> Camera</i>
-                </ion-item>
-
-                <ion-item nav-clear ng-click="atualizaFoto(2)">
-                    <i class="ion-android-image"> Galeria</i>
-                </ion-item>
-            </ion-list>
-            <button class="button button-outline button-assertive" ng-click="fechaModal()">
-                Cancela
-            </button>
+                </div>
+                <div class="item" ng-click="atualizaFoto(2)">
+                    <i class="ion ion-android-image"> Galeria</i>
+                </div>
+                <button class="button button-clear button-assertive" ng-click="fechaModal()">
+                    Cancela
+                </button>
+            </div>
         </ion-content>
     </ion-modal-view>
 </script>

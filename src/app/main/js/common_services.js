@@ -1,6 +1,6 @@
 'use strict';
 
-var kdmServices = angular.module('kdm.common.services', ['restangular']);
+var kdmServices = angular.module('kdm.common.services', ['restangular', 'kdm.servicoConstantes']);
 kdmServices.constant('version', '0.0.1');
 
 
@@ -121,7 +121,27 @@ kdmServices.factory('Auth', ['$log', '$q', '$http', '$window',
 kdmServices.factory('Camera', ['$q', function($q) {
 
     return {
-        getPicture: function(options) {
+        getPicture: function(source) {
+            var options;
+            if(source === 'camera'){
+                options = {
+                    targetWidth: 512,
+                    targetHeight: 512,
+                    quality: 70,
+                    allowEdit:true,
+                    destinationType: Camera.DestinationType.FILE_URI,
+                };
+            }else{
+                options = {
+                    targetWidth: 512,
+                    targetHeight: 512,
+                    quality: 70,
+                    allowEdit:true,
+                    destinationType: navigator.camera.PictureSourceType.FILE_URI,
+                    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                };
+            }
+
             var q = $q.defer();
             if (!navigator || !navigator.camera) {
                 q.resolve('Nao temos camera');
@@ -137,6 +157,30 @@ kdmServices.factory('Camera', ['$q', function($q) {
                 console.log('Vou rejeitar a promessa');
                 q.reject(err);
             }, options);
+
+            return q.promise;
+        }
+    };
+}]);
+
+kdmServices.factory('PictureUploader', ['$q', 'URLs', function($q, URLs) {
+
+    return {
+        uploadPicture: function(userID, fileURI) {
+            var q = $q.defer();
+            var options = new FileUploadOptions();
+            options.fileKey = "file";
+            options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpeg";
+            options.params = {}; // if we need to send parameters to the server request
+            var ft = new FileTransfer();
+            ft.upload(fileURI, encodeURI(URLs.urlCadastro + userID + URLs.urlCadastroComFoto), 
+                function(result){
+                    q.resolve(result);
+                },
+                function(error){
+                    q.reject(error);
+                }, options);
 
             return q.promise;
         }

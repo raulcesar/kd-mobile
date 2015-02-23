@@ -11,7 +11,7 @@
             </div>
 
             <div class="item item-body">
-                <img ng-src="{{fotoUrl}}" ng-click="atualizaFoto()">
+                <img ng-src="{{fotoUrl}}" ng-click="abreSelecaoFoto()">
                 <p>
                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -39,9 +39,18 @@
             </div>
 
         </div>
-
-
-        
-
     </ion-content>
 </ion-view>
+
+
+<script id="fonte_foto.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar>
+            <h1 class="title">Selecionar foto de: </h1>
+        </ion-header-bar>
+        <ion-content>
+            <button class="button button-full button-light" ng-click="atualizaFoto(1)">Camera</button>
+            <button class="button button-full button-light" ng-click="atualizaFoto(2)">Galeria</button>
+        </ion-content>
+    </ion-modal-view>
+</script>

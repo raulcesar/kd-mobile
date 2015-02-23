@@ -24,10 +24,10 @@
 
         <ion-list>
             <ion-item class="item item-avatar" ng-repeat="pessoa in resultadoResumoPessoas" ui-sref="kdm.pessoadetail({pessoaid: pessoa.id})">
-                <img ng-src="{{fotoUrl(pessoa.id)}}" >
+                <img ng-src="{{fotoUrl(pessoa.id)}}">
                 <h2>{{pessoa.nome}}</h2>
                 <p>P_{{pessoa.ponto}}</p>
-                
+
             </ion-item>
         </ion-list>
 

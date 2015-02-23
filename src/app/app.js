@@ -15,7 +15,7 @@ var kdm = angular.module('kdm', dependencies);
 
 kdm.config(function($compileProvider) {
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
-    })
+    });
     //RESTANGULAR initialization.
     // kdm.config(['RestangularProvider', 'kdmConfigServices', function (RestangularProvider, kdmConfigServices) {
     //   RestangularProvider.setBaseUrl(kdmConfigServices.getBackendServerURL());
@@ -34,6 +34,18 @@ kdm.run(['Restangular', 'kdmConfigServices', '$ionicPlatform', function(Restangu
     Restangular.setDefaultHttpFields({timeout: 1000});
 
     $ionicPlatform.ready(function() {
+
+        if (navigator.notification) { // Override default HTML alert with native dialog
+          window.alert = function (message) {
+              navigator.notification.alert(
+                  message,    // message
+                  null,       // callback
+                  'KD-Mobile', // title
+                  'OK'        // buttonName
+              );
+          };
+        }
+
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }

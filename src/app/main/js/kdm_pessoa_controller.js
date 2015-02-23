@@ -111,6 +111,7 @@ angular.module('kdm.pessoa.controllers', ['ionic', 'ui.router', 'kdm', 'kdm.comm
                 console.log(imageURI);
                 PictureUploader.uploadPicture($scope.pessoaid, imageURI).then(function(result) {
                     alert('Foto atualizada!');
+                    $scope.fechaModal();
                 }, function(error) {
                     alert('Erro! Foto não atualizada:\n' + error);
                 });

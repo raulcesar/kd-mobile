@@ -7,18 +7,13 @@
                 <p>{{pessoaCompleta.apelido}}</p>
                 <p>{{pessoaCompleta.emailCamara}}</p>
                 <p>Lotação: {{pessoaCompleta.setor.nome}}</p>
-                
+
             </div>
 
             <div class="item item-body">
                 <img ng-src="{{fotoUrl}}" ng-click="abreSelecaoFoto()">
                 <p>
-                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
                 <p>
                     <a href="#" class="subdued">1 Like</a>
@@ -49,8 +44,18 @@
             <h1 class="title">Selecionar foto de: </h1>
         </ion-header-bar>
         <ion-content>
-            <button class="button button-full button-light" ng-click="atualizaFoto(1)">Camera</button>
-            <button class="button button-full button-light" ng-click="atualizaFoto(2)">Galeria</button>
+            <ion-list>
+                <ion-item nav-clear ng-click="atualizaFoto(1)">
+                    <i class="ion ion-android-camera"> Camera</i>
+                </ion-item>
+
+                <ion-item nav-clear ng-click="atualizaFoto(2)">
+                    <i class="ion-android-image"> Galeria</i>
+                </ion-item>
+            </ion-list>
+            <button class="button button-outline button-assertive" ng-click="fechaModal()">
+                Cancela
+            </button>
         </ion-content>
     </ion-modal-view>
 </script>

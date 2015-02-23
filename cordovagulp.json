@@ -13,7 +13,8 @@
             "org.apache.cordova.statusbar",
             "org.apache.cordova.camera",
             "org.apache.cordova.device",
-            "org.apache.cordova.console"
+            "org.apache.cordova.console",
+            "org.apache.cordova.inappbrowser"
         ]
     ]
 }

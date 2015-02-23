@@ -1,5 +1,5 @@
 {
-"predef": ["angular", "_"],
+"predef": ["angular", "_", "cordova"],
   
   "node": true,
   "esnext": true,

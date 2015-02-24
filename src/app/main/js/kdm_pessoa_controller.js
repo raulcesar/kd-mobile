@@ -93,38 +93,19 @@ angular.module('kdm.pessoa.controllers', ['ionic', 'ui.router', 'kdm', 'kdm.comm
             }
 
             console.log('Getting camera');
-            $ionicLoading.show({
-                template: 'getting camera'
-            });
-            $timeout(function() {
-                $ionicLoading.hide();
-            }, 3000);
-
             Camera.getPicture(photoSource).then(function(imageURI) {
-                console.log('dentro do then do getPicture');
-                $ionicLoading.show({
-                    template: 'dentro do then do getPicture: ' + imageURI
-                });
-                $timeout(function() {
-                    $ionicLoading.hide();
-                }, 3000);
-                console.log(imageURI);
-                PictureUploader.uploadPicture($scope.pessoaid, imageURI).then(function(result) {
-                    alert('Foto atualizada!');
-                    $scope.fechaModal();
-                }, function(error) {
-                    alert('Erro! Foto não atualizada:\n' + error);
-                });
-            }, function(err) {
-                $ionicLoading.show({
-                    template: 'dentro do error do getPicture'
-                });
-                $timeout(function() {
-                    $ionicLoading.hide();
-                }, 3000);
-                console.log('dentro do error do getPicture');
-                //console.err(err);
-            });
+                    console.log('dentro do then do getPicture');
+                    console.log(imageURI);
+                    PictureUploader.uploadPicture($scope.pessoaid, imageURI).then(function(result) {
+                        alert('Foto atualizada!');
+                        $scope.fechaModal();
+                    }, function(error) {
+                        alert('Erro! Foto não atualizada:\n' + error);
+                    });
+                }, function(err) {
+
+                }
+            );
         };
         //TODO: Avaliar o que é melhor... buscar aqui dentro ou carregar na lista e so passar o estado quando trouxer a pessoa.
         function buscaPessoa(idPessoa) {

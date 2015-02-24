@@ -4,11 +4,23 @@
             <label class="item item-input">
                 <input type="text" placeholder="URL do Servidor" ng-model="config.urlServidor">
             </label>
-        
-            <button class="button button-block button-assertive" ng-click="aplicarConfig()">
+
+            <button class="button button-block button-assertive" ng-click="adicionaServidor()">
                 Aplicar
             </button>
-
         </div>
+
+        <ion-list>
+            <ion-item ng-repeat="item in serverList" class="item-remove-animate">
+                {{item.url}}
+
+                <ion-option-button class="button-assertive" ng-click="deletaServidor(item)">
+                    Deletar
+                </ion-option-button>
+
+                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+            </ion-item>
+
+        </ion-list>
     </ion-content>
 </ion-view>

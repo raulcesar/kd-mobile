@@ -1,11 +1,6 @@
 {
     "cordova": [
-        [
-            "platform",
-            "add",
-            "ios",
-            "android"
-        ],
+       
         [
             "plugin",
             "add",

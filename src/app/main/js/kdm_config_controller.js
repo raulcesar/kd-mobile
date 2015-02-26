@@ -5,14 +5,15 @@ angular.module('kdm.config.controllers', [
     'LocalStorageModule'
 ])
 
-.controller('kdmConfigCtrl', ['$rootScope', '$scope', 'kdmConfigServices', '$state', 'localStorageService',
+.controller('kdmConfigCtrl', ['$rootScope', '$scope', 'kdmConfigServices', 'localStorageService',
     function($rootScope, $scope, kdmConfigServices, localStorageService) {
-        if(!localStorageService.get(0, $scope.serverList)){
+        $scope.serverList = localStorageService.get('serverlist', $scope.serverList);
+        if(_.isEmpty($scope.serverList)){
             $scope.serverList = [];
         }
-        else{
-            $scope.serverList = localStorageService.get(0, $scope.serverList);
-        }
+        
+             
+        
 
         $scope.deletaServidor = function(item){
             console.log(item.url);
@@ -31,7 +32,7 @@ angular.module('kdm.config.controllers', [
             if (!achou){
                 var newItem = {url: $scope.config.urlServidor};
                 $scope.serverList.push(newItem);
-                localStorageService.set(0, $scope.serverList);
+                localStorageService.set('serverlist', $scope.serverList);
             }
 
             kdmConfigServices.setBackendServerURL($scope.config.urlServidor);

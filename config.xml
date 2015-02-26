@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+    <?xml version='1.0' encoding='utf-8'?>
 <widget id="org.zideco" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>kd-mobile</name>
     <description>
@@ -12,5 +12,9 @@
     <preference name="BackupWebStorage" value="local"/>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
+
+     <icon src="www/assets/images/kd-icon.png" />
+
+     <!-- <preference name="SplashScreenDelay" value="100" /> -->
 
 </widget>

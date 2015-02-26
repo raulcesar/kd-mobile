@@ -68,7 +68,8 @@ var paths = {
         './bower_components/famous-angular/dist/famous-angular.js',
         './bower_components/angular-foundation/mm-foundation-tpls.js',
         './bower_components/ionic/js/ionic.js',
-        './bower_components/ionic/js/ionic-angular.js'
+        './bower_components/ionic/js/ionic-angular.js',
+        './bower_components/angular-local-storage/dist/angular-local-storage.js',
 
         // './bower_components/angular/angular.min.js',
         // './bower_components/angular-ui-router/release/angular-ui-router.min.js',

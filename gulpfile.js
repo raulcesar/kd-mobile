@@ -214,17 +214,28 @@ gulp.task('copy-files-cordova', ['clean-cordova', 'clean', 'scripts-production',
 
 });
 
-gulp.task('cordova-init', ['copy-files-cordova'], function() {
-    gulp.src('./cordovagulp.json')
+gulp.task('cordova-init', ['cordova-init-platforms', 'cordova-init-plugins']);
+
+
+gulp.task('cordova-init-platforms', ['copy-files-cordova'], function() {
+    return gulp.src('./cordovagulp-platforms.json')
     .pipe(cordova());
 });
 
-gulp.task('cordova-build', ['copy-files-cordova'], function() {
-    gulp.src('.cordovaBuildFromGulp.json')
+gulp.task('cordova-init-plugins', ['cordova-init-platforms'], function() {
+    return gulp.src('./cordovagulp-plugins.json')
     .pipe(cordova());
 });
+
+
+gulp.task('cordova-build-ios', ['cordova-init', 'copy-files-cordova'], function() {
+    return cordova(['buil', 'ios'], {verbose:true});
+});
+
 
 gulp.task('default', ['cordova-build']);
+gulp.task('cordova-build', ['copy-files-cordova']);
+
 gulp.task('genNoServe', ['clean', 'scripts-production', 'templates', 'VendorCSS', 'AppCSS', 'copyImagesNoMin', 'CopiaWebFonts', 'copyMapFiles', 'copy-index', 'vendorJS']);
 gulp.task('desenv', ['copyImagesNoMin', 'CopiaWebFonts', 'VendorCSS', 'AppCSS', 'watchSTYLE']);
 gulp.task('serve-desenv', ['desenv', 'connect-dev']);

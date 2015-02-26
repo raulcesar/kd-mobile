@@ -22,6 +22,7 @@
     "karma-chrome-launcher": "~0.1",
     "karma-jasmine": "~0.2",
     "protractor": "*",
+    "q": "^1.2.0",
     "rimraf": "^2.2.8"
   }
 }

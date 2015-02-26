@@ -1,12 +1,42 @@
 'use strict';
 angular.module('kdm.config.controllers', [
     'ui.router',
-    'kdm.common.services'
+    'kdm.common.services',
+    'LocalStorageModule'
 ])
 
-.controller('kdmConfigCtrl', ['$rootScope', '$scope', 'kdmConfigServices', '$state',
+.controller('kdmConfigCtrl', ['$rootScope', '$scope', 'kdmConfigServices', '$state', 'localStorageService',
+    function($rootScope, $scope, kdmConfigServices, localStorageService) {
+        if(!localStorageService.get(0, $scope.serverList)){
+            $scope.serverList = [];
+        }
+        else{
+            $scope.serverList = localStorageService.get(0, $scope.serverList);
+        }
 
-    function($rootScope, $scope, kdmConfigServices) {
+        $scope.deletaServidor = function(item){
+            console.log(item.url);
+            $scope.serverList.splice($scope.serverList.indexOf(item), 1);
+        };
+
+        $scope.adicionaServidor = function(){
+            var achou = false;
+            console.log($scope.config.urlServidor);
+            for(var item in $scope.serverList){
+                if(item.url === $scope.config.urlServidor){
+                    achou = true;
+                    break;
+                }
+            }
+            if (!achou){
+                var newItem = {url: $scope.config.urlServidor};
+                $scope.serverList.push(newItem);
+                localStorageService.set(0, $scope.serverList);
+            }
+
+            kdmConfigServices.setBackendServerURL($scope.config.urlServidor);
+
+        };
 
         function refreshConfig() {
             $scope.config = {
@@ -28,10 +58,6 @@ angular.module('kdm.config.controllers', [
         // $scope.config = {
         //     urlServidor: kdmConfigServices.getBackendServerURL()
         // };
-        $scope.aplicarConfig = function() {
-            kdmConfigServices.setBackendServerURL($scope.config.urlServidor);
-            console.log('a fazer');
-        };
     }
 ]);
 

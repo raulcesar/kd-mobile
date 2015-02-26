@@ -1,6 +1,6 @@
 'use strict';
 
-var kdmServices = angular.module('kdm.common.services', ['restangular', 'kdm.servicoConstantes']);
+var kdmServices = angular.module('kdm.common.services', ['restangular']);
 kdmServices.constant('version', '0.0.1');
 
 
@@ -30,6 +30,11 @@ kdmServices.factory('kdmConfigServices', [
             return backEndServerURL;
         };
 
+        var getLinkFoto = function(id){
+            return '/pessoa/' + id  + '/foto/1';
+        };
+
+
         // config.constant('CONFIG', {
         //   BackendBaseUrl: 'http://localhost:3030/',
         //   BuildVersion:'<!--BuildVersion-->'
@@ -39,6 +44,7 @@ kdmServices.factory('kdmConfigServices', [
         return {
             setBackendServerURL: setBackendServerURL,
             getBackendServerURL: getBackendServerURL,
+            getLinkFoto: getLinkFoto,
             eventos: eventos
         };
 
@@ -163,7 +169,7 @@ kdmServices.factory('Camera', ['$q', function($q) {
     };
 }]);
 
-kdmServices.factory('PictureUploader', ['$q', 'URLs', function($q, URLs) {
+kdmServices.factory('PictureUploader', ['$q', 'kdmConfigServices', function($q, kdmConfigServices) {
 
     return {
         uploadPicture: function(userID, fileURI) {
@@ -174,7 +180,7 @@ kdmServices.factory('PictureUploader', ['$q', 'URLs', function($q, URLs) {
             options.mimeType = "image/jpeg";
             options.params = {}; // if we need to send parameters to the server request
             var ft = new FileTransfer();
-            ft.upload(fileURI, encodeURI(URLs.urlCadastro + userID + URLs.urlCadastroComFoto), 
+            ft.upload(fileURI, encodeURI(kdmConfigServices.getBackendServerURL() + kdmConfigServices.getLinkFoto(userID)), 
                 function(result){
                     q.resolve(result);
                 },

@@ -4,6 +4,7 @@ var dependencies = [
     'ionic',
 
     'restangular',
+    'LocalStorageModule',
     // 'kdm.config',
     'kdm.common.services',
     'kdm.main.states',
@@ -28,6 +29,13 @@ kdm.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.timeout = 100;
 
 }]);
+
+kdm.config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+        .setStorageType('sessionStorage');
+    localStorageServiceProvider
+        .setPrefix('kdm');
+});
 
 kdm.run(['Restangular', 'kdmConfigServices', '$ionicPlatform', function(Restangular, kdmConfigServices, $ionicPlatform) {
     Restangular.setBaseUrl(kdmConfigServices.getBackendServerURL());

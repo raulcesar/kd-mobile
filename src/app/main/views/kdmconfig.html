@@ -1,26 +1,27 @@
 <ion-view view-title="Configurações do Sistema">
     <ion-content>
         <div class="list">
-            <label class="item item-input">
+            <label class="item item-input" ng-model="icon">
+                <i class="{{icon}}"></i>
                 <input type="text" placeholder="URL do Servidor" ng-model="config.urlServidor">
             </label>
-
-            <button class="button button-block button-assertive" ng-click="adicionaServidor()">
-                Aplicar
-            </button>
         </div>
 
         <ion-list>
-            <ion-item ng-repeat="item in serverList" class="item-remove-animate">
+            <ion-item ng-repeat="item in serverList" class="item item-remove-animate" ng-click="setaServidor(item.url)">
                 {{item.url}}
 
                 <ion-option-button class="button-assertive" ng-click="deletaServidor(item)">
                     Deletar
                 </ion-option-button>
-
-                <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>
 
         </ion-list>
+        <button class="button button-block button-assertive" ng-click="adicionaServidor()">
+            Aplicar
+        </button>
+        <button class="button button-block button-assertive" ng-click="abrirBrowser()">
+            Abrir browser.
+        </button>
     </ion-content>
 </ion-view>

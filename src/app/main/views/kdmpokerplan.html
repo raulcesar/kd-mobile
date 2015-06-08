@@ -1,0 +1,86 @@
+<script id="session-modal-master.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar>
+				<h1 class="title">Resultado</h1>
+				<div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+		</ion-header-bar>
+		<ion-content>
+			<ul class="list">
+			    <li class="item" ng-repeat="joined in sessaoAtual.joined">
+			    	{{joined}} : {{jogadas[joined]}}
+			    </li>
+			</ul>
+  			<div class="button-bar">
+  				<a class="button button-positive" ng-click="novaTarefa()">Nova Tarefa</a>
+  				<a class="button button-balanced">Repetir Estimativa</a>
+			</div>
+			<button class="button button-full button-assertive" ng-click="finalizar()">Finalizar</a>
+		</ion-content>
+	</ion-modal-view>
+</script>
+
+<script id="session-modal.html" type="text/ng-template">
+	<ion-modal-view>
+		<ion-header-bar>
+				<h1 class="title">Resultado</h1>
+				<div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+		</ion-header-bar>
+		<ion-content>
+			<ul class="list">
+			    <li class="item" ng-repeat="joined in sessaoAtual.joined">
+			    	{{joined}} : {{jogadas[joined]}}
+			    </li>
+			</ul>
+		</ion-content>
+	</ion-modal-view>
+</script>
+
+<script id="escolhe-carta.html" type="text/ng-template">
+	<ion-popover-view>
+		<ion-header-bar>
+  			<h1 class="title">Escolha a carta</h1>
+		</ion-header-bar>
+		<ion-content>
+			<coverflow coverflow="coverflow" images="images"></coverflow>
+		</ion-content>
+	</ion-popover-view>
+</script>
+
+<script id="nova-tarefa.html" type="text/ng-template">
+	<ion-popover-view>
+		<ion-header-bar>
+  			<h1 class="title">Nova Tarefa</h1>
+		</ion-header-bar>
+		<ion-content>
+			<input type="text">
+		</ion-content>
+	</ion-popover-view>
+</script>
+
+<ion-view view-title="{{sessaoAtual.projeto}} - {{sessaoAtual.sprint}}">
+    <ion-content>
+  		<fa-app>
+    		<fa-modifier ng-repeat="jogador in jogadores"
+    			fa-translate="jogador.pos(t.get())">
+    			<fa-modifier
+    				fa-rotate-z="jogador.rotation(t.get())">
+			    	<fa-image-surface 
+			    		fa-click="escolheCarta($event)"
+			    		fa-image-url="assets/images/pokerplan/b1.png"
+			    		class="img",
+			    		fa-color="blue",
+			    		fa-background-color="'#fff'"
+			    		fa-size="[21, 30]">
+			    		    <span>{{jogador.nome}}</span>
+			    	</fa-image-surface>
+			    </fa-modifier>
+		    </fa-modifier>
+    	</fa-app>
+    	<button class="button button-small button-stable" ng-click="pronto()">
+		  Pronto!
+		</button>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-positive">
+ 		<h1 class="title">Tarefa Estimada: {{tarefaEstimada.nome}}</h1>
+	</ion-footer-bar>
+</ion-view>

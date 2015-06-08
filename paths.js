@@ -37,8 +37,6 @@ var paths = {
         './src/app/assets/style/external/**/*.css',
         './bower_components/famous-angular/dist/famous-angular.css',
         './bower_components/ionic/css/ionic.min.css'
-
-
     ],
     vendorsass: [
         './src/app/assets/style/external/**/*.scss'
@@ -87,7 +85,7 @@ var paths = {
 
     build: './build',
     cordovadeploy: './www',
-    imageSrc: ['./src/app/assets/images/*.*'],
+    imageSrc: ['./src/app/assets/images/**/*.*'],
     mockFiles: ['./src/app/mockdata/**/*.json']
 };
 paths.imageDestinationDir = paths.build + '/assets/images';

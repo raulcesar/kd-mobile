@@ -176,7 +176,7 @@ gulp.task('copy-index', function() {
 
 gulp.task('connect-dev', function() {
     connect.server({
-        root: ['.', 'src/app', 'src/build'],
+        root: ['.', 'src/app'],
         port: 9090,
         livereload: true
     });

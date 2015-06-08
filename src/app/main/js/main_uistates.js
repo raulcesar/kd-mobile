@@ -12,7 +12,9 @@ var mainStates = angular.module('kdm.main.states', [
     'kdm.config.controllers',
     'kdm.pessoa.controllers',
     'kdm.tarefas.controllers',
-    'kdm.agenda.controllers'
+    'kdm.agenda.controllers',
+    'kdm.pokerplan.controllers',
+
     // 'kdm.common.services',
     // 'ionic'
 ]);
@@ -26,10 +28,6 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
 
 
         $stateProvider
-
-
-
-
         .state('kdmpoctecs', {
             url: '/kdmpoctecs',
             templateUrl: 'main/views/state_main.html',
@@ -120,6 +118,24 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             }
         })
 
-        ;
+        .state('kdm.pokerplansessions',{
+            url: '/pokerplansessions',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/views/kdmpokerplansessions.html',
+                    controller: 'kdmPokerPlanSessionsCtrl'
+                }
+            }
+        })
+
+        .state('kdm.pokerplan',{
+            url: '/pokerplan',
+            views: {
+                'menuContent': {
+                    templateUrl: 'main/views/kdmpokerplan.html',
+                    controller: 'kdmPokerPlanCtrl'
+                }
+            }
+        });
     }
 ]);

@@ -6,7 +6,7 @@ var mainStates = angular.module('kdm.main.states', [
     'ui.router',
     'kdm.poctec.controllers',
     'kdm.famous.controllers',
-    'kdm.foundation.controllers',
+    // 'kdm.foundation.controllers',
     
 
     'kdm.config.controllers',
@@ -44,15 +44,6 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
                 moduleName: 'Famous'
             },
             controller: 'famousCtrl'
-        })
-
-        .state('foundation', {
-            url: '/foundation',
-            templateUrl: 'main/views/foundation.html',
-            data: {
-                moduleName: 'Foundation'
-            },
-            controller: 'foundationCtrl'
         })
 
 

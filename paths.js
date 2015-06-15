@@ -35,14 +35,14 @@ var paths = {
 
     vendorcss: [
         './src/app/assets/style/external/**/*.css',
+        './bower_components/famous/dist/famous.css',
         './bower_components/famous-angular/dist/famous-angular.css',
-        './bower_components/ionic/css/ionic.min.css'
+        './bower_components/angular-coverflow/coverflow.css'
     ],
     vendorsass: [
         './src/app/assets/style/external/**/*.scss'
         // './bower_components/font-awesome/scss/*.scss'
         // ,
-        // './bower_components/foundation/scss/*.scss'
     ],
     webFonts: [
     './src/app/assets/fonts/**/*.*'
@@ -65,8 +65,8 @@ var paths = {
         './bower_components/famous/dist/famous-global.js',
         './bower_components/famous-angular/dist/famous-angular.js',
         './bower_components/angular-foundation/mm-foundation-tpls.js',
-        './bower_components/ionic/js/ionic.js',
-        './bower_components/ionic/js/ionic-angular.js',
+        './bower_components/ionic/release/js/ionic.js',
+        './bower_components/ionic/release/js/ionic-angular.js',
         './bower_components/angular-local-storage/dist/angular-local-storage.js',
 
         // './bower_components/angular/angular.min.js',

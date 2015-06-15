@@ -11,7 +11,7 @@ var os = require('os');
 var replace = require('gulp-replace');
 var angularTemplatecache = require('gulp-angular-templatecache');
 var htmlreplace = require('gulp-html-replace');
-var cordova = require('gulp-cordovacli');
+var gulpCordova = require('gulp-cordovacli');
 
 function buildVersionString() {
         var jenkinsTag = process.env.BUILD_TAG;
@@ -176,7 +176,8 @@ gulp.task('copy-index', function() {
 
 gulp.task('connect-dev', function() {
     connect.server({
-        root: ['.', 'src/app'],
+        // root: ['.', 'src/app', 'src/build'],
+        root: ['.', 'src/app', 'build'],
         port: 9090,
         livereload: true
     });
@@ -219,12 +220,12 @@ gulp.task('cordova-init', ['cordova-init-platforms', 'cordova-init-plugins']);
 
 gulp.task('cordova-init-platforms', ['copy-files-cordova'], function() {
     return gulp.src('./cordovagulp-platforms.json')
-    .pipe(cordova());
+    .pipe(gulpCordova());
 });
 
 gulp.task('cordova-init-plugins', ['cordova-init-platforms'], function() {
     return gulp.src('./cordovagulp-plugins.json')
-    .pipe(cordova());
+    .pipe(gulpCordova());
 });
 
 

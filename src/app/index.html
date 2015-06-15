@@ -10,21 +10,22 @@
     <!-- The following block will be substituted by the build file by two js files (lib and app).-->
     <!-- build:js -->
 
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../../bower_components/lodash/lodash.js"></script>
     <script src="../../bower_components/angular/angular.js"></script>
-    <script src="../../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../../bower_components/restangular/dist/restangular.js"></script>
+
     <script src="../../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.js"></script>
     <script src="../../bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 
-    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="../../bower_components/lodash/lodash.js"></script>
-    <script src="../../bower_components/restangular/dist/restangular.js"></script>
-    <script src="../../bower_components/jquery/dist/jquery.js"></script>
     <script src="../../bower_components/famous/dist/famous-global.js"></script>
-    <script src="../../bower_components/angular-foundation/mm-foundation-tpls.js"></script>
     <script src="../../bower_components/famous-angular/dist/famous-angular.js"></script>
     <script src="../../bower_components/angular-coverflow/coverflow.js"></script>
-    <script src="../../bower_components/ionic/js/ionic.js"></script>
-    <script src="../../bower_components/ionic/js/ionic-angular.js"></script>
+    
+    <script src="../../bower_components/ionic/release/js/ionic.js"></script>
+    <script src="../../bower_components/ionic/release/js/ionic-angular.js"></script>
     
 
     <!-- <script src="../../bower_components/socket.io-client/socket.io.js"></script> -->
@@ -38,24 +39,25 @@
 
     <script src="app.js"></script>
 
+    <script src="main/js/kd-services.js"></script>
 
     <script src="main/js/common_directives.js"></script>
     <script src="main/js/common_filters.js"></script>
     <script src="main/js/common_services.js"></script>
-    <script src="main/js/kdm_pokerplan_services.js"></script>
 
     <!-- Modules go here... maybe you only need 1 -->
     <script src="main/js/kdm_poctec_controller.js"></script>
     <script src="main/js/main_uistates.js"></script>
     <script src="main/js/famous_controller.js"></script>
-    <script src="main/js/foundation_controller.js"></script>
+    <!-- <script src="main/js/foundation_controller.js"></script> -->
     <script src="main/js/kdm_pessoa_controller.js"></script>
 
     <script src="main/js/kdm_config_controller.js"></script>
     <script src="main/js/kdm_agenda_controller.js"></script>
     <script src="main/js/kdm_tarefas_controller.js"></script>
+
+    <script src="main/js/kdm_pokerplan_services.js"></script>
     <script src="main/js/kdm_pokerplan_controller.js"></script>
-    <script src="main/js/kd-services.js"></script>
 
     <!-- endbuild -->
 

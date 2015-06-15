@@ -46,15 +46,6 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
             controller: 'famousCtrl'
         })
 
-        // .state('foundation', {
-        //     url: '/foundation',
-        //     templateUrl: 'main/views/foundation.html',
-        //     data: {
-        //         moduleName: 'Foundation'
-        //     },
-        //     controller: 'foundationCtrl'
-        // })
-
 
         .state('kdm', {
 

@@ -38,13 +38,11 @@ var paths = {
         './bower_components/famous/dist/famous.css',
         './bower_components/famous-angular/dist/famous-angular.css',
         './bower_components/angular-coverflow/coverflow.css'
-        // './bower_components/ionic/css/ionic.min.css'
     ],
     vendorsass: [
         './src/app/assets/style/external/**/*.scss'
         // './bower_components/font-awesome/scss/*.scss'
         // ,
-        // './bower_components/foundation/scss/*.scss'
     ],
     webFonts: [
     './src/app/assets/fonts/**/*.*'

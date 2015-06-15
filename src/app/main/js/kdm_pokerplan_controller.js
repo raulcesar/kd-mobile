@@ -5,7 +5,7 @@ angular.module('kdm.pokerplan.controllers',
 	 'kdm',
 	 'kdm.pokerplan.services',
 	 'famous.angular',
-	 // 'angular-coverflow'
+	 'angular-coverflow'
 	 ])
 
 .controller('kdmPokerPlanSessionsCtrl',

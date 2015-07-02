@@ -37,23 +37,26 @@
 
 <script id="escolhe-carta.html" type="text/ng-template">
 	<ion-popover-view>
-		<ion-header-bar>
-  			<h1 class="title">Escolha a carta</h1>
-		</ion-header-bar>
-		<ion-content>
-			<coverflow coverflow="coverflow" images="images"></coverflow>
-		</ion-content>
-	</ion-popover-view>
-</script>
-
-<script id="nova-tarefa.html" type="text/ng-template">
-	<ion-popover-view>
-		<ion-header-bar>
-  			<h1 class="title">Nova Tarefa</h1>
-		</ion-header-bar>
-		<ion-content>
-			<input type="text">
-		</ion-content>
+		<ion-slide-box on-slide-changed="slideHasChanged($index)">
+			<ion-slide ng-click="pronto(1)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+			<ion-slide ng-click="pronto(2)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+			<ion-slide ng-click="pronto(3)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+			<ion-slide ng-click="pronto(5)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+			<ion-slide ng-click="pronto(8)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+			<ion-slide ng-click="pronto(13)">
+				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
+			</ion-slide>
+		</ion-slide-box>
 	</ion-popover-view>
 </script>
 
@@ -76,9 +79,6 @@
 			    </fa-modifier>
 		    </fa-modifier>
     	</fa-app>
-    	<button class="button button-small button-stable" ng-click="pronto()">
-		  Pronto!
-		</button>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-positive">
  		<h1 class="title">Tarefa Estimada: {{tarefaEstimada.nome}}</h1>

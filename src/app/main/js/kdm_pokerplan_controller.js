@@ -5,7 +5,6 @@ angular.module('kdm.pokerplan.controllers',
 	 'kdm',
 	 'kdm.pokerplan.services',
 	 'famous.angular',
-	 'angular-coverflow'
 	 ])
 
 .controller('kdmPokerPlanSessionsCtrl',
@@ -58,15 +57,7 @@ angular.module('kdm.pokerplan.controllers',
 		$scope.dados = {};
 		$scope.dados.nomeNovaTarefa = '';
 		$scope.isMaster = true;
-		$scope.coverflow = {};
-		$scope.images = [
-			'assets/images/pokerplan/b1.png',
-			'assets/images/pokerplan/b1.png',
-			'assets/images/pokerplan/b1.png',
-			'assets/images/pokerplan/b1.png',
-			'assets/images/pokerplan/b1.png',
-			'assets/images/pokerplan/b1.png'
-		];
+		$scope.tarefaEstimada = {};
 
 		function init(){
 			var jogador;
@@ -86,12 +77,8 @@ angular.module('kdm.pokerplan.controllers',
 				count ++;
 			}
 
-			$scope.tarefaEstimada = {
-				'nome' : 'tarefa de teste',
-				'jogadas' : {},
-				'resultado' : 0
-			};
-			kdmPokerPlanService.setTarefaEstimada($scope.tarefaEstimada);
+			$scope.tarefaEstimada = kdmPokerPlanService.getTarefaEstimadaCorrente();
+			
 		}
 
 		init();
@@ -167,36 +154,9 @@ angular.module('kdm.pokerplan.controllers',
 
 	  	$scope.novaTarefa = function(){
 	  		$scope.finalizarMao();
-	  		$scope.modal.hide();
-	  		var myPopup = $ionicPopup.show({
-			    template: '<input type="text" ng-model="dados.nomeNovaTarefa">',
-			    title: 'Nova Tarefa',
-			    scope: $scope,
-			    buttons: [
-			      	{ text: 'Cancel' },
-			      	{
-				        text: '<b>Ok</b>',
-				        type: 'button-positive',
-				        onTap: function(e) {
-				            if (!$scope.dados.nomeNovaTarefa) {
-					            //don't allow the user to close unless he enters wifi password
-					            e.preventDefault();
-				          	} else {
-				            	return $scope.dados.nomeNovaTarefa;
-				          	}
-				        }
-			      	}
-			    ]
-		  	});
-			myPopup.then(function() {
-				console.log($scope.dados.nomeNovaTarefa);
-				$scope.tarefaEstimada = {
-					'nome' : $scope.dados.nomeNovaTarefa,
-					'jogadas' : {},
-					'resultado' : 0
-				};
-				kdmPokerPlanService.setTarefaEstimada($scope.tarefaEstimada);
-			});
+	  		$scope.tarefaEstimada = kdmPokerPlanService.getProximaTarefaTarefaEstimada();
+	  		$scope.closeModal();
+	  		animateUnDraw();
 	  	};
 
 	  	$scope.finalizarMao = function(){
@@ -211,8 +171,15 @@ angular.module('kdm.pokerplan.controllers',
 
 	  	$scope.finalizar = function(){
 	  		$scope.finalizarMao();
-	  		$scope.tarefasFinalizado = kdmPokerPlanService.getTarefasEstimadas();
-	  		console.log($scope.tarefasFinalizado);
+	  		var tarefas = kdmPokerPlanService.getTarefasEstimadas();
+	  		for(var i = 0; i < kdmPokerPlanService.getNumeroTarefasEstimadas(); i++){
+	  			console.log(tarefas.resultado);
+	  		}
+	  	};
+
+	  	$scope.enviarTarefas = function(){
+	  		 kdmPokerPlanService.setTarefas($scope.listaTarefas);
+	  		 $scope.closeModal();
 	  	};
 	}
 ]);

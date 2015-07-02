@@ -50,8 +50,25 @@ angular.module('kdm.pokerplan.services', [])
 
 .factory('kdmPokerPlanService', 
 	function(){
-		var tarefasEstimadas = [];
+		var tarefasEstimadas = [
+			{
+				'nome' : 'tarefa1',
+				'jogadas' : [],
+				'resultado' : 0
+			},
+			{
+				'nome' : 'tarefa2',
+				'jogadas' : [],
+				'resultado' : 0
+			},
+			{
+				'nome' : 'tarefa3',
+				'jogadas' : [],
+				'resultado' : 0
+			}
+		];
 		var tarefaEstimadaCorrente;
+		var tarefaEstimadaCorrenteIndex = 0;
 		var sessaoCorrente;
 		var jogadaCorrente = {};
 
@@ -65,7 +82,16 @@ angular.module('kdm.pokerplan.services', [])
 		};
 
 		var getTarefaEstimadaCorrente = function(){
-			return tarefaEstimadaCorrente;
+			return tarefasEstimadas[tarefaEstimadaCorrenteIndex];
+		};
+
+		var getProximaTarefaTarefaEstimada = function(){
+			tarefaEstimadaCorrenteIndex++;
+			return tarefasEstimadas[tarefaEstimadaCorrenteIndex];
+		};
+
+		var setTarefas = function(tarefas){
+			tarefasEstimadas = tarefas;
 		};
 
 		var getTarefasEstimadas = function(){
@@ -73,13 +99,13 @@ angular.module('kdm.pokerplan.services', [])
 		};
 
 		var setJogada = function(user, j){
-			tarefaEstimadaCorrente.jogadas[user] = j;
+			tarefasEstimadas[tarefaEstimadaCorrenteIndex].jogadas[user] = j;
 			jogadaCorrente[user] = j;
 
 			for(var i = 0; i < sessaoCorrente.joined.length; i++){
 				if(sessaoCorrente.joined[i] !== 'myname'){
 					jogadaCorrente[sessaoCorrente.joined[i]] = j;
-					tarefaEstimadaCorrente.jogadas[sessaoCorrente.joined[i]] = j;
+					tarefasEstimadas[tarefaEstimadaCorrenteIndex].jogadas[sessaoCorrente.joined[i]] = j;
 				}
 			}
 		};
@@ -88,13 +114,25 @@ angular.module('kdm.pokerplan.services', [])
 			return jogadaCorrente;
 		};
 
+		var getNumeroTarefasEstimadas = function(){
+			return tarefaEstimadaCorrenteIndex;
+		};
+
+		var setResultadoMao = function(result){
+			tarefasEstimadas[tarefaEstimadaCorrenteIndex].resultado = result;
+		};
+
 		return {
 			setTarefaEstimada : setTarefaEstimada,
 			getTarefasEstimadas:getTarefasEstimadas,
 			getTarefaEstimadaCorrente : getTarefaEstimadaCorrente,
 			setSessaoCorrente : setSessaoCorrente,
 			setJogada : setJogada,
-			getJogadasMao : getJogadasMao
+			getJogadasMao : getJogadasMao,
+			setTarefas: setTarefas,
+			getProximaTarefaTarefaEstimada: getProximaTarefaTarefaEstimada,
+			getNumeroTarefasEstimadas: getNumeroTarefasEstimadas,
+			setResultadoMao: setResultadoMao
 		};
 	}
 );

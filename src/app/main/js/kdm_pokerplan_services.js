@@ -2,8 +2,9 @@
 
 angular.module('kdm.pokerplan.services', [])
 
-.factory('kdmSessionService', 
-	function(){
+.factory('kdmSessionService', [
+	'$q', '$timeout',
+	function($q, $timeout){
 		var sessoes = [
 				{
 					'id' : 0,
@@ -26,7 +27,15 @@ angular.module('kdm.pokerplan.services', [])
 		var idSessaoAtual;
 
 		var getListaSessoes = function(){
-			return sessoes;
+			var deferred = $q.defer();
+
+			$timeout(function() {
+				deferred.resolve(sessoes);
+			}, 0);
+
+			// return sessoes;
+
+			return deferred.promise;
 		};
 
 		var updateListaSessoes = function(list){
@@ -46,6 +55,7 @@ angular.module('kdm.pokerplan.services', [])
 			getSessaoAtual : getSessaoAtual
 		};
 	}
+	]
 )
 
 .factory('kdmPokerPlanService', 

@@ -12,7 +12,12 @@ angular.module('kdm.pokerplan.controllers',
 	 'kdmSessionService',
 
 	function($scope, kdmSessionService){
-		$scope.sessoes = kdmSessionService.getListaSessoes();
+		kdmSessionService.getListaSessoes().then(function(data) {
+			$scope.sessoes = data;
+		}, function(error) {
+			console.log('erro: ' + error);
+
+		});
 
 		$scope.join = function(i){
 			$scope.sessoes[i].joined.push('myname');

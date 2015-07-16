@@ -120,7 +120,7 @@ mainStates.config(['$stateProvider', '$urlRouterProvider',
         })
 
         .state('kdm.pokerplan',{
-            url: '/pokerplan',
+            url: '/pokerplan/:sessionId',
             views: {
                 'menuContent': {
                     templateUrl: 'main/views/kdmpokerplan.html',

@@ -3,63 +3,14 @@
 angular.module('kdm.pokerplan.services', [])
 
 .factory('kdmSessionService', [
-	'$q', '$timeout',
-	function($q, $timeout){
-		var sessoes = [
-				{
-					'id' : 0,
-					'projeto' : 'kd',
-					'sprint' : 'Subir o KD para produção',
-					'responsavel' : 'CEDI',
-					'joined' : ['Raul', 'Alezina'],
-					'master' : 'alezina'
-				},
+	'$q', 
+	'$timeout',
+	'$rootScope',
 
-				{
-					'id' : 1,
-					'projeto' : 'projeto1',
-					'sprint' : 'Alguma coisa',
-					'responsavel' : 'CENIN',
-					'joined' : ['user1', 'user2'],
-					'master' : 'user1'
-				}
-		];
-		var idSessaoAtual;
+	function($q, $timeout, $rootScope){
+		var eventoTodosJogaram = 'eventoTodosJogaram';
+		var eventoRepetirEstimativa = 'eventoRepetirEstimativa';
 
-		var getListaSessoes = function(){
-			var deferred = $q.defer();
-
-			$timeout(function() {
-				deferred.resolve(sessoes);
-			}, 0);
-
-			// return sessoes;
-
-			return deferred.promise;
-		};
-
-		var updateListaSessoes = function(list){
-			sessoes = list;
-		};
-
-		var setIDSessaoAtual = function(i){
-			idSessaoAtual = i;
-		};
-		var getSessaoAtual = function(){
-			return sessoes[idSessaoAtual];
-		};
-		return {
-			getListaSessoes : getListaSessoes,
-			updateListaSessoes : updateListaSessoes,
-			setIDSessaoAtual : setIDSessaoAtual,
-			getSessaoAtual : getSessaoAtual
-		};
-	}
-	]
-)
-
-.factory('kdmPokerPlanService', 
-	function(){
 		var tarefasEstimadas = [
 			{
 				'nome' : 'tarefa1',
@@ -77,72 +28,162 @@ angular.module('kdm.pokerplan.services', [])
 				'resultado' : 0
 			}
 		];
-		var tarefaEstimadaCorrente;
-		var tarefaEstimadaCorrenteIndex = 0;
-		var sessaoCorrente;
-		var jogadaCorrente = {};
+		var sessoes = [
+				{
+					'id' : 0,
+					'projeto' : 'kd',
+					'sprint' : 'Subir o KD para produção',
+					'responsavel' : 'CEDI',
+					'joined' : ['Raul', 'Alezina'],
+					'master' : 'myname',
+					'tarefas' : tarefasEstimadas
+				},
 
-		var setSessaoCorrente = function(sc){
-			sessaoCorrente = sc;
-		};
-
-		var setTarefaEstimada = function(tarefaEstimada){
-			tarefasEstimadas.push(tarefaEstimada);
-			tarefaEstimadaCorrente = tarefaEstimada;
-		};
-
-		var getTarefaEstimadaCorrente = function(){
-			return tarefasEstimadas[tarefaEstimadaCorrenteIndex];
-		};
-
-		var getProximaTarefaTarefaEstimada = function(){
-			tarefaEstimadaCorrenteIndex++;
-			return tarefasEstimadas[tarefaEstimadaCorrenteIndex];
-		};
-
-		var setTarefas = function(tarefas){
-			tarefasEstimadas = tarefas;
-		};
-
-		var getTarefasEstimadas = function(){
-			return tarefasEstimadas;
-		};
-
-		var setJogada = function(user, j){
-			tarefasEstimadas[tarefaEstimadaCorrenteIndex].jogadas[user] = j;
-			jogadaCorrente[user] = j;
-
-			for(var i = 0; i < sessaoCorrente.joined.length; i++){
-				if(sessaoCorrente.joined[i] !== 'myname'){
-					jogadaCorrente[sessaoCorrente.joined[i]] = j;
-					tarefasEstimadas[tarefaEstimadaCorrenteIndex].jogadas[sessaoCorrente.joined[i]] = j;
+				{
+					'id' : 1,
+					'projeto' : 'projeto1',
+					'sprint' : 'Alguma coisa',
+					'responsavel' : 'CENIN',
+					'joined' : ['user1', 'user2'],
+					'master' : 'user1',
+					'tarefas' : tarefasEstimadas
 				}
+		];
+		var idSessaoCorrente;
+		var idTarefaEstimadaCorrente = 0;
+
+		var getListaSessoes = function(){
+			var deferred = $q.defer();
+
+			$timeout(function() {
+				deferred.resolve(sessoes);
+			}, 0);
+
+			return deferred.promise;
+		};
+
+		var inserirParticipante = function(name, session){
+			var deferred = $q.defer();
+			$timeout(function() {
+				for(var i = 0; i < sessoes.length; i++){
+					if(sessoes[i].id === session.id){
+						sessoes[i].joined.push(name);
+						idSessaoCorrente = session.id;
+					}
+				}
+				deferred.resolve();
+			}, 0);
+
+			return deferred.promise;
+		};
+
+		var updateListaSessoes = function(list){
+			var deferred = $q.defer();
+
+			$timeout(function() {
+				deferred.resolve(list);
+			}, 0);
+
+			return deferred.promise;
+		};
+
+		var inserirJogada = function(name, value){
+			var deferred = $q.defer();
+			var jogada;
+
+			$timeout(function() {
+				jogada = {'nome': name, 'valor': value};
+				sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas.push(jogada);
+
+				deferred.resolve();
+			}, 0);
+
+			$timeout(function(){
+				for(var i = 0; i < sessoes[idSessaoCorrente].joined.length; i++){
+					if(sessoes[idSessaoCorrente].joined[i] !== name){
+						jogada = {'nome': sessoes[idSessaoCorrente].joined[i], 'valor': 3};
+						sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas.push(jogada);
+					}
+				}
+				calculaResultadoTarefa();
+				$rootScope.$broadcast(eventoTodosJogaram);
+
+			}, 0);
+
+			return deferred.promise;
+		};
+
+		var calculaResultadoTarefa = function(){
+			var sum = 0;
+			
+			for(var i = 0; i < sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas.length; i++){
+				sum += sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas[i].valor;
 			}
+			sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].resultado = 
+							Math.round(sum/sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas.length);
 		};
 
-		var getJogadasMao = function(){
-			return jogadaCorrente;
+		var getSessionMaster = function(){
+			return sessoes[idSessaoCorrente].master;
 		};
 
-		var getNumeroTarefasEstimadas = function(){
-			return tarefaEstimadaCorrenteIndex;
+		var getResultadoTarefaEstimadaCorrente = function(){
+			var resultado = {
+					'jogadas': sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].jogadas,
+					'valor': sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].resultado
+				};
+
+			return resultado;
 		};
 
-		var setResultadoMao = function(result){
-			tarefasEstimadas[tarefaEstimadaCorrenteIndex].resultado = result;
+		var getNomeTarefaEstimadaCorrente = function(){
+			return sessoes[idSessaoCorrente].tarefas[idTarefaEstimadaCorrente].nome;
+		};
+
+		var getSessaoCorrente = function(){
+			return sessoes[idSessaoCorrente];
+		};
+
+		var preparaProximaTarefa = function(){
+			idTarefaEstimadaCorrente ++;
 		};
 
 		return {
-			setTarefaEstimada : setTarefaEstimada,
-			getTarefasEstimadas:getTarefasEstimadas,
-			getTarefaEstimadaCorrente : getTarefaEstimadaCorrente,
-			setSessaoCorrente : setSessaoCorrente,
-			setJogada : setJogada,
-			getJogadasMao : getJogadasMao,
-			setTarefas: setTarefas,
-			getProximaTarefaTarefaEstimada: getProximaTarefaTarefaEstimada,
-			getNumeroTarefasEstimadas: getNumeroTarefasEstimadas,
-			setResultadoMao: setResultadoMao
+			getListaSessoes : getListaSessoes,
+			updateListaSessoes : updateListaSessoes,
+			inserirParticipante: inserirParticipante,
+			inserirJogada: inserirJogada,
+			calculaResultadoTarefa: calculaResultadoTarefa,
+			getSessionMaster: getSessionMaster,
+			getNomeTarefaEstimadaCorrente: getNomeTarefaEstimadaCorrente,
+			getResultadoTarefaEstimadaCorrente: getResultadoTarefaEstimadaCorrente,
+			getSessaoCorrente: getSessaoCorrente,
+			preparaProximaTarefa: preparaProximaTarefa,
+			//eventos
+			eventoTodosJogaram: eventoTodosJogaram,
+			eventoRepetirEstimativa: eventoRepetirEstimativa
 		};
-	}
+	}]
+)
+
+.factory('kdmPokerPlanService', [
+	'kdmSessionService',
+
+	function(kdmSessionService){
+		var jogar = function(name, value){
+			return kdmSessionService.inserirJogada(name, value);
+		};
+
+		var isMaster = function(name){
+			if(name === kdmSessionService.getSessionMaster()){
+				return true;
+			}
+			return false;
+		};
+
+		return {
+			jogar: jogar,
+			isMaster: isMaster
+		};
+	}]
 );

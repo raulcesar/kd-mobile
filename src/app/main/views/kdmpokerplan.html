@@ -6,10 +6,11 @@
 		</ion-header-bar>
 		<ion-content>
 			<ul class="list">
-			    <li class="item" ng-repeat="joined in sessaoAtual.joined">
-			    	{{joined}} : {{jogadas[joined]}}
+			    <li class="item" ng-repeat="jogada in resultadoTarefa.jogadas">
+			    	{{jogada.nome}} : {{jogada.valor}}
 			    </li>
 			</ul>
+			<div><h2>Média = {{resultadoTarefa.valor}}</div>
   			<div class="button-bar">
   				<a class="button button-positive" ng-click="novaTarefa()">Nova Tarefa</a>
   				<a class="button button-balanced">Repetir Estimativa</a>
@@ -27,10 +28,12 @@
 		</ion-header-bar>
 		<ion-content>
 			<ul class="list">
-			    <li class="item" ng-repeat="joined in sessaoAtual.joined">
-			    	{{joined}} : {{jogadas[joined]}}
+			    <li class="item" ng-repeat="jogada in resultadoTarefa.jogadas">
+			    	{{jogada.nome}} : {{jogada.valor}}
 			    </li>
 			</ul>
+			<div><h2>Média = {{resultadoTarefa.valor}}</div>
+			<span>Esperando scrum master...</span>
 		</ion-content>
 	</ion-modal-view>
 </script>
@@ -38,29 +41,29 @@
 <script id="escolhe-carta.html" type="text/ng-template">
 	<ion-popover-view>
 		<ion-slide-box on-slide-changed="slideHasChanged($index)">
-			<ion-slide ng-click="pronto(1)">
+			<ion-slide ng-click="fazJogada(1)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
-			<ion-slide ng-click="pronto(2)">
+			<ion-slide ng-click="fazJogada(2)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
-			<ion-slide ng-click="pronto(3)">
+			<ion-slide ng-click="fazJogada(3)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
-			<ion-slide ng-click="pronto(5)">
+			<ion-slide ng-click="fazJogada(5)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
-			<ion-slide ng-click="pronto(8)">
+			<ion-slide ng-click="fazJogada(8)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
-			<ion-slide ng-click="pronto(13)">
+			<ion-slide ng-click="fazJogada(13)">
 				<div class="item item-image"><img src="assets/images/pokerplan/b1.png"></div>
 			</ion-slide>
 		</ion-slide-box>
 	</ion-popover-view>
 </script>
 
-<ion-view view-title="{{sessaoAtual.projeto}} - {{sessaoAtual.sprint}}">
+<ion-view view-title="{{sessaoCorrente.projeto}} - {{sessaoCorrente.sprint}}">
     <ion-content>
   		<fa-app>
     		<fa-modifier ng-repeat="jogador in jogadores"
@@ -81,6 +84,6 @@
     	</fa-app>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-positive">
- 		<h1 class="title">Tarefa Estimada: {{tarefaEstimada.nome}}</h1>
+ 		<h1 class="title">Tarefa Estimada: {{nomeTarefaCorrente}}</h1>
 	</ion-footer-bar>
 </ion-view>

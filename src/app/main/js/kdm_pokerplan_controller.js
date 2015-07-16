@@ -10,8 +10,9 @@ angular.module('kdm.pokerplan.controllers',
 .controller('kdmPokerPlanSessionsCtrl',
 	['$scope',
 	 'kdmSessionService',
+	 '$state',
 
-	function($scope, kdmSessionService){
+	function($scope, kdmSessionService, $state){
 		kdmSessionService.getListaSessoes().then(function(data) {
 			$scope.sessoes = data;
 		}, function(error) {
@@ -19,9 +20,10 @@ angular.module('kdm.pokerplan.controllers',
 
 		});
 
-		$scope.join = function(i){
-			$scope.sessoes[i].joined.push('myname');
-			kdmSessionService.setIDSessaoAtual(i);
+		$scope.join = function(session){
+			kdmSessionService.inserirParticipante('myname', session).then(function(){
+				$state.go('kdm.pokerplan', {'sessioId': session.id});
+			});
 		};
 	}
 
@@ -29,6 +31,7 @@ angular.module('kdm.pokerplan.controllers',
 
 .controller('kdmPokerPlanCtrl',
 	['$scope',
+	'$rootScope',
 	'$interval',
 	'$timeout',
 	'kdmSessionService',
@@ -39,8 +42,11 @@ angular.module('kdm.pokerplan.controllers',
 	'$ionicModal',
 	'$ionicPopover',
 	'$ionicPopup',
+	'$rootScope',
+	'$stateParams',
 	
 	function($scope,
+			$rootScope,
 	 		$interval,
 	  		$timeout,
 	   		kdmSessionService, 
@@ -50,24 +56,24 @@ angular.module('kdm.pokerplan.controllers',
 	   		$window, 
 	   		$ionicModal, 
 	   		$ionicPopover,
-	   		$ionicPopup){
+	   		$stateParams){
 
 		var Easing = $famous['famous/transitions/Easing'];
 		var Transitionable = $famous['famous/transitions/Transitionable'];
-		$scope.jogadores = [];
 		var idist = 100, fdist = 10;
 		var center = {'x' : $window.innerWidth/2, 'y' : $window.innerHeight/2 - 30};
 		$scope.t = new Transitionable(0);
-		var draw = false;
-		$scope.dados = {};
-		$scope.dados.nomeNovaTarefa = '';
-		$scope.isMaster = true;
-		$scope.tarefaEstimada = {};
+		var esperando = false;
+		$scope.jogadores = [];
+		$scope.sessaoCorrente = kdmSessionService.getSessaoCorrente();
+		$scope.nomeTarefaCorrente = kdmSessionService.getNomeTarefaEstimadaCorrente();
+
+		$scope.$on(kdmSessionService.eventoTodosJogaram, function(){
+			mostraJogadas();
+		});
 
 		function init(){
 			var jogador;
-			$scope.sessaoAtual = kdmSessionService.getSessaoAtual();
-			kdmPokerPlanService.setSessaoCorrente($scope.sessaoAtual);
 
 			var dRot = (Math.PI*2)/6;
 
@@ -80,22 +86,10 @@ angular.module('kdm.pokerplan.controllers',
 									 			])};
 				$scope.jogadores.push(jogador);
 				count ++;
-			}
-
-			$scope.tarefaEstimada = kdmPokerPlanService.getTarefaEstimadaCorrente();
-			
+			}		
 		}
 
 		init();
-
-		$scope.clickHandler = function(){
-			if(draw){
-				animateUnDraw();
-			}
-			else{
-				animateDraw();
-			}
-		};
 
 		function animateDraw(){
 			var i = 0;
@@ -103,7 +97,6 @@ angular.module('kdm.pokerplan.controllers',
 				$scope.t.set(i);
 				i += 0.01;
 			}, 10, 100);
-			draw = true;			
 		}
 		function animateUnDraw(){
 			var i = 1;
@@ -111,42 +104,7 @@ angular.module('kdm.pokerplan.controllers',
 				$scope.t.set(i);
 				i -= 0.01;
 			}, 10, 100);
-			draw = false;	
 		}
-
-		$scope.pronto = function(jogada){
-			kdmPokerPlanService.setJogada('myname', jogada);
-			$scope.popover.hide();
-			animateDraw();
-			$scope.jogadas = kdmPokerPlanService.getJogadasMao();
-			$timeout(function() {
-				if($scope.isMaster){
-					$ionicModal.fromTemplateUrl('session-modal-master.html', function($ionicModal) {
-	        			$scope.modal = $ionicModal;
-	        			$scope.openModal();
-	    			}, {
-	    				scope: $scope,
-	    				animation: 'slide-in-up'
-	  				});
-				}
-				else{
-					$ionicModal.fromTemplateUrl('session-modal.html', function($ionicModal) {
-	        			$scope.modal = $ionicModal;
-	        			$scope.openModal();
-	    			}, {
-	    				scope: $scope,
-	    				animation: 'slide-in-up'
-	  				});
-				}
-			}, 1000);
-		};		
-
-	    $scope.openModal = function() {
-	    	$scope.modal.show();
-	  	};
-	  	$scope.closeModal = function() {
-	   		$scope.modal.hide();
-	  	};
 
 	  	$scope.escolheCarta = function($event){
 	  		$ionicPopover.fromTemplateUrl('escolhe-carta.html',{
@@ -157,34 +115,41 @@ angular.module('kdm.pokerplan.controllers',
 	  		});
 	  	};
 
+	  	$scope.fazJogada = function(valor){
+	  		$scope.popover.hide();
+	  		kdmPokerPlanService.jogar('myname', valor).then(
+	  			function(){
+	  				animateDraw();
+	  			});
+	  	};
+
+	  	function mostraJogadas(){
+	  		$scope.resultadoTarefa = kdmSessionService.getResultadoTarefaEstimadaCorrente();
+	  		if(kdmPokerPlanService.isMaster('myname')){
+	  			$ionicModal.fromTemplateUrl('session-modal-master.html', {
+		  			scope: $scope,
+					animation: 'slide-in-up'
+				}).then(function(modal) {
+					$scope.modal = modal;
+					$scope.modal.show();
+				});
+	  		}
+	  		else{
+	  			$ionicModal.fromTemplateUrl('session-modal.html', {
+		  			scope: $scope,
+					animation: 'slide-in-up'
+				}).then(function(modal) {
+					$scope.modal = modal;
+					$scope.modal.show();
+				});
+	  		}
+	  	}
+
 	  	$scope.novaTarefa = function(){
-	  		$scope.finalizarMao();
-	  		$scope.tarefaEstimada = kdmPokerPlanService.getProximaTarefaTarefaEstimada();
-	  		$scope.closeModal();
+	  		kdmSessionService.preparaProximaTarefa();
+	  		$scope.nomeTarefaCorrente = kdmSessionService.getNomeTarefaEstimadaCorrente();
 	  		animateUnDraw();
-	  	};
-
-	  	$scope.finalizarMao = function(){
-	  		var tarefaAtual = kdmPokerPlanService.getTarefaEstimadaCorrente();
-	  		var soma = 0;
-	  		for(var i = 0; i < $scope.sessaoAtual.joined.length; i++){
-	  			soma += tarefaAtual.jogadas[$scope.sessaoAtual.joined[i]];
-	  		}
-	  		tarefaAtual.resultado = soma/$scope.sessaoAtual.joined.length;
-	  		kdmPokerPlanService.getTarefaEstimadaCorrente().resultado = tarefaAtual.resultado;
-	  	};
-
-	  	$scope.finalizar = function(){
-	  		$scope.finalizarMao();
-	  		var tarefas = kdmPokerPlanService.getTarefasEstimadas();
-	  		for(var i = 0; i < kdmPokerPlanService.getNumeroTarefasEstimadas(); i++){
-	  			console.log(tarefas.resultado);
-	  		}
-	  	};
-
-	  	$scope.enviarTarefas = function(){
-	  		 kdmPokerPlanService.setTarefas($scope.listaTarefas);
-	  		 $scope.closeModal();
+	  		$scope.modal.hide();
 	  	};
 	}
 ]);

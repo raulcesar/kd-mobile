@@ -1,7 +1,7 @@
 <ion-view view-title="Poker Plan - Sessões">
     <ion-content>
         <ion-list>
-    		<ion-item ng-repeat="s in sessoes" ui-sref="kdm.pokerplan" ng-click="join(s.id)">{{s.projeto}}</ion-item>
+    		<ion-item ng-repeat="s in sessoes" ng-click="join(s)">{{s.projeto}}</ion-item>
         </ion-list>
 
         <button class="button button-block button-positive">
